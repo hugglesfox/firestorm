@@ -26,8 +26,8 @@ void FireStorm::route(http_request request) {
 }
 
 // Register a get route
-FireStorm FireStorm::get(string path, const RouteFn &fn) {
-  Route route = {path, HTTP_GET_METHOD, fn};
+FireStorm FireStorm::get(string uri, const RouteFn &fn) {
+  Route route = {uri, HTTP_GET_METHOD, fn};
   routes.push_back(route);
   return *this;
 }
