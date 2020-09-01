@@ -71,9 +71,11 @@ UriVars Route::arg_vars(http_request request) {
 // Returns a combination of path_vars() and arg_vars()
 UriVars Route::uri_vars(http_request request) {
   UriVars result = path_vars(request);
-  UriVars args = arg_vars(request);
 
-  result.insert(args.begin(), args.end());
+  if (method == HTTP_GET_METHOD) {
+    UriVars args = arg_vars(request);
+    result.insert(args.begin(), args.end());
+  }
 
   return result;
 }

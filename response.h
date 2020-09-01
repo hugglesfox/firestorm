@@ -13,6 +13,7 @@ struct Response {
 };
 
 
+Response status(http_status_code status);
 Response plain(string text, http_status_code status);
 
 #endif
