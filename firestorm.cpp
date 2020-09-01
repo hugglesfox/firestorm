@@ -34,7 +34,7 @@ bool FireStorm::is_duplicate(string uri) {
 }
 
 // Register a get route
-FireStorm FireStorm::get(string uri, const RouteFn &fn) {
+FireStorm FireStorm::get(string uri, RouteFn fn) {
   if (!is_duplicate(uri)) {
     Route route = {uri, HTTP_GET_METHOD, fn};
     routes.push_back(route);

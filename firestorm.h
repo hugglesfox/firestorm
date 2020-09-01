@@ -15,7 +15,7 @@ private:
   bool is_duplicate(string uri);
 
 public:
-  FireStorm get(string path, const RouteFn &fn);
+  FireStorm get(string path, RouteFn fn);
   FireStorm post(RouteFn fn);
   // FireStorm del(RouteFn fn);
   // FireStorm put(RouteFn fn);
