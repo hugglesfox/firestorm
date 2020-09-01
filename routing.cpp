@@ -21,8 +21,13 @@ vector<string> split_path(string uri) {
 
 // Split a string at & ignoring path
 vector<string> split_args(string uri) {
-  string args = split_at(uri, '?')[1];
-  return split_at(args, '&');
+  vector<string> args = split_at(uri, '?');
+
+  // Check if there are any agruments
+  if (args.size() == 2) {
+    return split_at(args[1], '&');
+  }
+  return {};
 }
 
 // Returns an unordered map of the variable path identifiers and the correlating
