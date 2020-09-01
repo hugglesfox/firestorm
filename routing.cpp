@@ -14,22 +14,27 @@ string parse_identifier(string id) {
 }
 
 // Splits a string at / ignoring arguments
-vector<string> split_path(string path) {
-  path = split_at(path, '?')[0];
+vector<string> split_path(string uri) {
+  string path = split_at(uri, '?')[0];
   return split_at(path, '/');
 }
 
-// Returns an unorderd map of the variable path identifiers and the correlating
+vector<string> split_args(string uri) {
+  string args = split_at(uri, '?')[1];
+  return split_at(args, '&');
+}
+
+// Returns an unordered map of the variable path identifiers and the correlating
 // values from a request.
 //
 // For an example if the variable path was /animal/<animal>
 // then the request /animal/dog
 // would result in {"animal": "dog"} being returned.
-PathVars Route::path_vars(http_request request) {
-  PathVars result;
+UriVars Route::uri_vars(http_request request) {
+  UriVars result;
 
   vector<string> request_stubs = request_uri_stubs(request);
-  vector<string> route_stubs = split_path(path);
+  vector<string> route_stubs = split_path(uri);
 
   for (int i = 0; i < route_stubs.size(); i++) {
     string id = parse_identifier(route_stubs[i]);
@@ -50,14 +55,14 @@ bool Route::matches(http_request request) {
   }
 
   // Check if the request matches directly
-  // (it doesn't contain a varaible path)
-  if (path == request_uri(request)) {
+  // (it doesn't contain a variable path)
+  if (uri == request_uri(request)) {
     return true;
   }
 
   // Handle variable paths
   vector<string> request_stubs = request_uri_stubs(request);
-  vector<string> route_stubs = split_path(path);
+  vector<string> route_stubs = split_path(uri);
 
 
   for (int i = 0; i < request_stubs.size(); i++) {

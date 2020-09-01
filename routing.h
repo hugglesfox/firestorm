@@ -6,18 +6,18 @@
 #include "response.h"
 #include "utils.h"
 
-using PathVars = std::unordered_map<string, string>;
-using RouteFn = Response (*)(PathVars path);
+using UriVars = std::unordered_map<string, string>;
+using RouteFn = Response (*)(UriVars path);
 
 struct Route {
 
-  string path;
+  string uri;
   http_method method;
   RouteFn fn;
 
   bool matches(http_request request);
   Response route(http_request request);
-  PathVars path_vars(http_request request);
+  UriVars uri_vars(http_request request);
 };
 
 #endif
