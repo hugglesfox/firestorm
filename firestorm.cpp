@@ -41,6 +41,13 @@ Outcome FireStorm::handle_middlewares(http_request request) {
   return Outcome::Success;
 }
 
+// Register a middleware
+FireStorm FireStorm::middleware(MiddleWareFn fn, ErrorFn failure) {
+  MiddleWare middleware = {fn, failure};
+  middlewares.push_back(middleware);
+  return *this;
+}
+
 // Returns a boolean of whether a route already exists
 bool FireStorm::is_duplicate(Route r) {
   for (Route route : routes) {

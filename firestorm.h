@@ -26,7 +26,7 @@ public:
   FireStorm post(string uri, RouteFn fn);
   // FireStorm del(RouteFn fn);
   // FireStorm put(RouteFn fn);
-  FireStorm middleware(MiddleWareFn middleware, RouteFn failure);
+  FireStorm middleware(MiddleWareFn fn, ErrorFn failure);
   void ignite(unsigned int port);
 };
 
