@@ -5,8 +5,8 @@
 #include "response.h"
 #include "unordered_map"
 
-using RouteFn = Response (*)(std::unordered_map<string, string> path);
 using PathVars = std::unordered_map<string, string>;
+using RouteFn = Response (*)(PathVars path);
 
 struct Route {
 
