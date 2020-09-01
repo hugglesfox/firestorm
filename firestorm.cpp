@@ -27,7 +27,7 @@ void FireStorm::route(http_request request) {
 Outcome FireStorm::handle_middlewares(http_request request) {
   for (MiddleWare middleware : middlewares) {
     try {
-      if (!middleware.handler(request).is_success()) {
+      if (middleware.handler(request) == Outcome::Failure) {
         middleware.failure().send(request);
         return Outcome::Failure;
       }
@@ -77,7 +77,11 @@ void FireStorm::ignite(unsigned int port) {
   while (true) {
     signal(SIGINT, sigint);
     http_request request = next_web_request(server);
-    if (handle_middlewares(request).is_success()) {
+
+    // Don't route the request if a middleware failed otherwise it'll try
+    // sending 2 responses to the same request which creates unpredictable
+    // behaviour.
+    if (handle_middlewares(request) == Outcome::Success) {
       route(request);
     }
   }
