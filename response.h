@@ -12,7 +12,6 @@ struct Response {
   void send(http_request request);
 };
 
-
 Response status(http_status_code status);
 Response plain(string text, http_status_code status);
 

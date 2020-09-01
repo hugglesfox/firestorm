@@ -23,6 +23,24 @@ void FireStorm::route(http_request request) {
   plain("Not found", HTTP_STATUS_NOT_FOUND).send(request);
 }
 
+// Handle middlewares
+Outcome FireStorm::handle_middlewares(http_request request) {
+  for (MiddleWare middleware : middlewares) {
+    try {
+      if (!middleware.handler(request).is_success()) {
+        middleware.failure().send(request);
+        return Outcome::Failure;
+      }
+    } catch (...) {
+      // 500
+      plain("Internal server error", HTTP_STATUS_INTERNAL_SERVER_ERROR)
+          .send(request);
+      return Outcome::Failure;
+    }
+  }
+  return Outcome::Success;
+}
+
 // Returns a boolean of whether a route already exists
 bool FireStorm::is_duplicate(Route r) {
   for (Route route : routes) {
@@ -40,7 +58,7 @@ FireStorm FireStorm::add_route(string uri, RouteFn fn, http_method method) {
     routes.push_back(route);
     return *this;
   }
-   throw std::invalid_argument("Duplicate route: " + uri);
+  throw std::invalid_argument("Duplicate route: " + uri);
 }
 
 // Register a get route
@@ -59,6 +77,8 @@ void FireStorm::ignite(unsigned int port) {
   while (true) {
     signal(SIGINT, sigint);
     http_request request = next_web_request(server);
-    route(request);
+    if (handle_middlewares(request).is_success()) {
+      route(request);
+    }
   }
 }

@@ -1,6 +1,7 @@
 #include "response.h"
 #include "include/splashkit/splashkit.h"
 
+// Send response the to the client
 void Response::send(http_request request) {
   send_response(request, status, body, content_type);
 }

@@ -2,16 +2,22 @@
 #define FIRESTORM
 
 #include "include/splashkit/splashkit.h"
+#include <unordered_map>
+#include <csignal>
+
 #include "response.h"
 #include "routing.h"
 #include "utils.h"
-#include <unordered_map>
-#include <csignal>
+#include "error.h"
+#include "middleware.h"
+
 
 class FireStorm {
 private:
   vector<Route> routes;
+  vector<MiddleWare> middlewares;
   void route(http_request request);
+  Outcome handle_middlewares(http_request request);
   FireStorm add_route(string uri, RouteFn, http_method method);
   bool is_duplicate(Route r);
 
@@ -20,6 +26,7 @@ public:
   FireStorm post(string uri, RouteFn fn);
   // FireStorm del(RouteFn fn);
   // FireStorm put(RouteFn fn);
+  FireStorm middleware(MiddleWareFn middleware, RouteFn failure);
   void ignite(unsigned int port);
 };
 
