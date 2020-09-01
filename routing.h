@@ -18,6 +18,8 @@ struct Route {
   bool matches(http_request request);
   Response route(http_request request);
   UriVars uri_vars(http_request request);
+  UriVars path_vars(http_request request);
+  UriVars arg_vars(http_request request);
 };
 
 #endif

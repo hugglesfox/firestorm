@@ -30,19 +30,50 @@ vector<string> split_args(string uri) {
 // For an example if the variable path was /animal/<animal>
 // then the request /animal/dog
 // would result in {"animal": "dog"} being returned.
-UriVars Route::uri_vars(http_request request) {
+UriVars Route::path_vars(http_request request) {
   UriVars result;
 
   vector<string> request_stubs = request_uri_stubs(request);
-  vector<string> route_stubs = split_path(uri);
+  vector<string> path_stubs = split_path(uri);
 
-  for (int i = 0; i < route_stubs.size(); i++) {
-    string id = parse_identifier(route_stubs[i]);
+  for (int i = 0; i < path_stubs.size(); i++) {
+    string id = parse_identifier(path_stubs[i]);
 
     if (id.length() > 0) {
       result[id] = request_stubs[i];
     }
   }
+
+  return result;
+}
+
+// Returns an un ordered map of the variable argument identifiers and the
+// correlating value from a request.
+//
+// For an example if the variable path was /animal?<name>
+// then the request /animal?name=spot
+// would result in {"name": "spot"} being returned.
+UriVars Route::arg_vars(http_request request) {
+  UriVars result;
+  vector<string> arg_vars = split_args(uri);
+
+  for (string &var : arg_vars) {
+    string id = parse_identifier(var);
+
+    if (id.length() > 0) {
+      result[id] = request_query_parameter(request, id, "");
+    }
+  }
+
+  return result;
+}
+
+// Returns a combination of path_vars() and arg_vars()
+UriVars Route::uri_vars(http_request request) {
+  UriVars result = path_vars(request);
+  UriVars args = arg_vars(request);
+
+  result.insert(args.begin(), args.end());
 
   return result;
 }
@@ -64,7 +95,6 @@ bool Route::matches(http_request request) {
   vector<string> request_stubs = request_uri_stubs(request);
   vector<string> route_stubs = split_path(uri);
 
-
   for (int i = 0; i < request_stubs.size(); i++) {
     // Request path is longer then the route
     if (i >= route_stubs.size()) {
@@ -82,6 +112,4 @@ bool Route::matches(http_request request) {
 }
 
 // Handle a request using this route. Returns a Response.
-Response Route::route(http_request request) {
-  return fn(path_vars(request));
-}
+Response Route::route(http_request request) { return fn(uri_vars(request)); }
