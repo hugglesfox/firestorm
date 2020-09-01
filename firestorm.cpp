@@ -33,14 +33,19 @@ bool FireStorm::is_duplicate(string uri) {
   return false;
 }
 
-// Register a get route
-FireStorm FireStorm::get(string uri, RouteFn fn) {
+// Register a route
+FireStorm FireStorm::add_route(string uri, RouteFn fn, http_method method) {
   if (!is_duplicate(uri)) {
-    Route route = {uri, HTTP_GET_METHOD, fn};
+    Route route = {uri, method, fn};
     routes.push_back(route);
     return *this;
   }
    throw std::invalid_argument("Duplicate route: " + uri);
+}
+
+// Register a get route
+FireStorm FireStorm::get(string uri, RouteFn fn) {
+  return add_route(uri, fn, HTTP_GET_METHOD);
 }
 
 // Start the server
