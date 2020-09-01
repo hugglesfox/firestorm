@@ -4,7 +4,9 @@
 #include "include/splashkit/splashkit.h"
 #include "response.h"
 #include "routing.h"
+#include "utils.h"
 #include <unordered_map>
+#include <csignal>
 
 class FireStorm {
 private:

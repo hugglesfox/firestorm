@@ -1,7 +1,5 @@
 #include "firestorm.h"
 #include "include/splashkit/splashkit.h"
-#include <csignal>
-#include <sstream>
 
 using namespace std;
 
