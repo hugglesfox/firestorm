@@ -23,10 +23,10 @@ void FireStorm::route(http_request request) {
   plain("Not found", HTTP_STATUS_NOT_FOUND).send(request);
 }
 
-// Returns a boolean of whether a route has already been defined at that uri
-bool FireStorm::is_duplicate(string uri) {
+// Returns a boolean of whether a route already exists
+bool FireStorm::is_duplicate(Route r) {
   for (Route route : routes) {
-    if (route.uri == uri) {
+    if (route.uri == r.uri && route.method == r.method) {
       return true;
     }
   }
@@ -35,8 +35,8 @@ bool FireStorm::is_duplicate(string uri) {
 
 // Register a route
 FireStorm FireStorm::add_route(string uri, RouteFn fn, http_method method) {
-  if (!is_duplicate(uri)) {
-    Route route = {uri, method, fn};
+  Route route = {uri, method, fn};
+  if (!is_duplicate(route)) {
     routes.push_back(route);
     return *this;
   }

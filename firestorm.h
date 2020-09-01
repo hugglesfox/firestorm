@@ -13,7 +13,7 @@ private:
   vector<Route> routes;
   void route(http_request request);
   FireStorm add_route(string uri, RouteFn, http_method method);
-  bool is_duplicate(string uri);
+  bool is_duplicate(Route r);
 
 public:
   FireStorm get(string uri, RouteFn fn);
