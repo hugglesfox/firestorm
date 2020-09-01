@@ -78,6 +78,16 @@ FireStorm FireStorm::post(string uri, RouteFn fn) {
   return add_route(uri, fn, HTTP_POST_METHOD);
 }
 
+// Register a put route
+FireStorm FireStorm::put(string uri, RouteFn fn) {
+  return add_route(uri, fn, HTTP_PUT_METHOD);
+}
+
+// Register a delete route
+FireStorm FireStorm::del(string uri, RouteFn fn) {
+  return add_route(uri, fn, HTTP_DELETE_METHOD);
+}
+
 // Start the server
 void FireStorm::ignite(unsigned int port) {
   web_server server = start_web_server(port);

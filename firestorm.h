@@ -24,8 +24,8 @@ private:
 public:
   FireStorm get(string uri, RouteFn fn);
   FireStorm post(string uri, RouteFn fn);
-  // FireStorm del(RouteFn fn);
-  // FireStorm put(RouteFn fn);
+  FireStorm del(string uri, RouteFn fn);
+  FireStorm put(string uri, RouteFn fn);
   FireStorm middleware(MiddleWareFn fn, ErrorFn failure);
   void ignite(unsigned int port);
 };
