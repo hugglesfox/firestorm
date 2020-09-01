@@ -1,6 +1,5 @@
 #include "routing.h"
 #include "include/splashkit/splashkit.h"
-#include <sstream>
 
 using namespace std;
 
@@ -14,21 +13,10 @@ string parse_identifier(string id) {
   return "";
 }
 
-// Splits a string at /
+// Splits a string at / ignoring arguments
 vector<string> split_path(string path) {
-  stringstream r;
-  r.str(path);
-
-  string stub;
-  vector<string> stubs;
-
-  while (getline(r, stub, '/')) {
-    if (stub != "") {
-      stubs.push_back(stub);
-    }
-  }
-
-  return stubs;
+  path = split_at(path, '?')[0];
+  return split_at(path, '/');
 }
 
 // Returns an unorderd map of the variable path identifiers and the correlating

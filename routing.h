@@ -2,8 +2,9 @@
 #define FIRESTORM_ROUTING
 
 #include "include/splashkit/splashkit.h"
+#include <unordered_map>
 #include "response.h"
-#include "unordered_map"
+#include "utils.h"
 
 using PathVars = std::unordered_map<string, string>;
 using RouteFn = Response (*)(PathVars path);
