@@ -4,17 +4,17 @@ using namespace std;
 
 // Split a string at a character
 vector<string> split_at(string s, char c) {
-  stringstream is;
-  is.str(s);
-
-  string part;
   vector<string> parts;
+  string part;
 
-  while (getline(is, part, c)) {
-    if (part != "") {
+  for (char character : s) {
+    if (character != c) {
+      part += character;
+    } else if (!part.empty()) {
       parts.push_back(part);
+      part = "";
     }
   }
-
+  parts.push_back(part);
   return parts;
 }

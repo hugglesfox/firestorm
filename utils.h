@@ -1,9 +1,8 @@
 #ifndef FIRESTORM_UTILS
 #define FIRESTORM_UTILS
 
+#include "include/splashkit/splashkit.h"
 #include <string>
-#include <iostream>
-#include <sstream>
 #include <vector>
 
 std::vector<std::string> split_at(std::string s, char c);
