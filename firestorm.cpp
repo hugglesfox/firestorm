@@ -48,6 +48,11 @@ FireStorm FireStorm::get(string uri, RouteFn fn) {
   return add_route(uri, fn, HTTP_GET_METHOD);
 }
 
+// Register a post route
+FireStorm FireStorm::post(string uri, RouteFn fn) {
+  return add_route(uri, fn, HTTP_POST_METHOD);
+}
+
 // Start the server
 void FireStorm::ignite(unsigned int port) {
   web_server server = start_web_server(port);
