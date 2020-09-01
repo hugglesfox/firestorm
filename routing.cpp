@@ -21,13 +21,20 @@ vector<string> split_path(string uri) {
 
 // Split a string at & ignoring path
 vector<string> split_args(string uri) {
-  vector<string> args = split_at(uri, '?');
+  vector<string> uri_parts = split_at(uri, '?');
 
-  // Check if there are any agruments
-  if (args.size() == 2) {
-    return split_at(args[1], '&');
+  // Remove the path bit
+  uri_parts.front() = uri_parts.back();
+  uri_parts.pop_back();
+
+  // The HTTP spec states that only the first ? has any significance
+  string args;
+  for (string arg : uri_parts) {
+    args += '?' + arg;
   }
-  return {};
+  args.erase(0, 1);
+
+  return split_at(args, '&');
 }
 
 // Returns an unordered map of the variable path identifiers and the correlating
@@ -91,12 +98,6 @@ bool Route::matches(http_request request) {
   // Check request method
   if (method != request_method(request)) {
     return false;
-  }
-
-  // Check if the request matches directly
-  // (it doesn't contain a variable path)
-  if (uri == request_uri(request)) {
-    return true;
   }
 
   // Handle variable paths
