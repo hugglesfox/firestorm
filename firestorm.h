@@ -14,6 +14,7 @@
 
 class FireStorm {
 private:
+  Error error;
   vector<Route> routes;
   vector<MiddleWare> middlewares;
   void route(http_request request);
@@ -26,6 +27,17 @@ public:
   FireStorm post(string uri, RouteFn fn);
   FireStorm del(string uri, RouteFn fn);
   FireStorm put(string uri, RouteFn fn);
+
+  FireStorm bad_request(ErrorFn fn);
+  FireStorm unauthorized(ErrorFn fn);
+  FireStorm forbidden(ErrorFn fn);
+  FireStorm not_found(ErrorFn fn);
+  FireStorm method_not_allowed(ErrorFn fn);
+
+  FireStorm internal_server_error(ErrorFn fn);
+  FireStorm not_implemented(ErrorFn fn);
+  FireStorm service_unavailable(ErrorFn fn);
+
   FireStorm middleware(MiddleWareFn fn, ErrorFn failure);
   void ignite(unsigned int port);
 };

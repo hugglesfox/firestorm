@@ -11,16 +11,16 @@ void FireStorm::route(http_request request) {
     if (route.matches(request)) {
       try {
         route.route(request).send(request);
+      } catch (http_status_code s) {
+        error.from(s)().send(request);
       } catch (...) {
-        // 500
-        plain("Internal server error", HTTP_STATUS_INTERNAL_SERVER_ERROR)
-            .send(request);
+        error.internal_server_error().send(request);
       }
-      return;
+    } else {
+      write_line("hits here");
+      error.not_found().send(request);
     }
   }
-  // 404
-  plain("Not found", HTTP_STATUS_NOT_FOUND).send(request);
 }
 
 // Handle middlewares
@@ -31,21 +31,15 @@ Outcome FireStorm::handle_middlewares(http_request request) {
         middleware.failure().send(request);
         return Outcome::Failure;
       }
+    } catch (http_status_code s) {
+      error.from(s)().send(request);
+      return Outcome::Failure;
     } catch (...) {
-      // 500
-      plain("Internal server error", HTTP_STATUS_INTERNAL_SERVER_ERROR)
-          .send(request);
+      error.internal_server_error().send(request);
       return Outcome::Failure;
     }
   }
   return Outcome::Success;
-}
-
-// Register a middleware
-FireStorm FireStorm::middleware(MiddleWareFn fn, ErrorFn failure) {
-  MiddleWare middleware = {fn, failure};
-  middlewares.push_back(middleware);
-  return *this;
 }
 
 // Returns a boolean of whether a route already exists
@@ -86,6 +80,54 @@ FireStorm FireStorm::put(string uri, RouteFn fn) {
 // Register a delete route
 FireStorm FireStorm::del(string uri, RouteFn fn) {
   return add_route(uri, fn, HTTP_DELETE_METHOD);
+}
+
+// Error register error handler
+FireStorm FireStorm::bad_request(ErrorFn fn) {
+  error.bad_request = fn;
+  return *this;
+}
+
+FireStorm FireStorm::unauthorized(ErrorFn fn) {
+  error.unauthorized = fn;
+  return *this;
+}
+
+FireStorm FireStorm::forbidden(ErrorFn fn) {
+  error.forbidden = fn;
+  return *this;
+}
+
+FireStorm FireStorm::not_found(ErrorFn fn) {
+  error.not_found = fn;
+  return *this;
+}
+
+FireStorm FireStorm::method_not_allowed(ErrorFn fn) {
+  error.method_not_allowed = fn;
+  return *this;
+}
+
+FireStorm FireStorm::internal_server_error(ErrorFn fn) {
+  error.internal_server_error = fn;
+  return *this;
+}
+
+FireStorm FireStorm::not_implemented(ErrorFn fn) {
+  error.not_implemented = fn;
+  return *this;
+}
+
+FireStorm FireStorm::service_unavailable(ErrorFn fn) {
+  error.service_unavailable = fn;
+  return *this;
+}
+
+// Register a middleware
+FireStorm FireStorm::middleware(MiddleWareFn fn, ErrorFn failure) {
+  MiddleWare middleware = {fn, failure};
+  middlewares.push_back(middleware);
+  return *this;
 }
 
 // Start the server
