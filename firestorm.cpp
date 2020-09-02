@@ -11,16 +11,17 @@ void FireStorm::route(http_request request) {
     if (route.matches(request)) {
       try {
         route.route(request).send(request);
+        return;
       } catch (http_status_code s) {
         error.from(s)().send(request);
+        return;
       } catch (...) {
         error.internal_server_error().send(request);
+        return;
       }
-    } else {
-      write_line("hits here");
-      error.not_found().send(request);
     }
   }
+  error.not_found().send(request);
 }
 
 // Handle middlewares
