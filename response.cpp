@@ -7,9 +7,13 @@ void Response::send(http_request request) {
 }
 
 Response status(http_status_code status) {
-  return Response {status, {}, "text/plain", ""};
+  return Response{status, {}, "text/plain", ""};
 }
 
 Response plain(string text, http_status_code status) {
-  return Response {status, {}, "text/plain", text};
+  return Response{status, {}, "text/plain", text};
+}
+
+Response json_data(json data, http_status_code status) {
+  return Response{status, {}, "application/json", json_to_string(data)};
 }
