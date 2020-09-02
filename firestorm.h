@@ -38,7 +38,9 @@ public:
   FireStorm not_implemented(ErrorFn fn);
   FireStorm service_unavailable(ErrorFn fn);
 
+  FireStorm middleware(MiddleWareFn fn);
   FireStorm middleware(MiddleWareFn fn, ErrorFn failure);
+
   void ignite(unsigned int port);
 };
 

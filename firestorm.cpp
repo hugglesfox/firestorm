@@ -124,7 +124,14 @@ FireStorm FireStorm::service_unavailable(ErrorFn fn) {
   return *this;
 }
 
-// Register a middleware
+// Register a middleware that will either always throw or always succeed
+FireStorm FireStorm::middleware(MiddleWareFn fn) {
+  MiddleWare middleware = {fn, error.internal_server_error};
+  middlewares.push_back(middleware);
+  return *this;
+}
+
+// Register a middleware with a custom failure handler
 FireStorm FireStorm::middleware(MiddleWareFn fn, ErrorFn failure) {
   MiddleWare middleware = {fn, failure};
   middlewares.push_back(middleware);
