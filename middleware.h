@@ -2,20 +2,23 @@
 #define FIRESTORM_MIDDLEWARE
 
 #include "include/splashkit/splashkit.h"
-
 #include "error.h"
-#include "routing.h"
 
-enum Outcome {
+enum OutcomeKind {
   Success,
   Failure,
 };
 
-using MiddleWareFn = Outcome (*)(http_request request);
+template <typename R> struct Outcome {
+  OutcomeKind kind;
+  R route;
+};
 
-struct MiddleWare {
-  MiddleWareFn handler;
-  ErrorFn failure;
+template <typename R> class MiddleWare {
+public:
+  virtual Outcome<R> handle(http_request request) {
+    throw HTTP_STATUS_INTERNAL_SERVER_ERROR;
+  }
 };
 
 #endif
