@@ -5,13 +5,15 @@
 
 #include "middlewares/parse_uri_vars.h"
 #include "response.h"
-#include "utils.h"
 
 class Route {
+protected:
+  virtual vector<MiddleWare<Route>> middlewares() { return {}; };
+
 public:
-  vector<MiddleWare<Route>> middlewares = {};
   UriVars vars;
-  virtual Response route() { throw HTTP_STATUS_NOT_FOUND; }
+  Outcome<Response> handle(http_request request);
+  virtual Outcome<Response> route() { throw HTTP_STATUS_NOT_FOUND; }
 };
 
 #endif
