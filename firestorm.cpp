@@ -24,25 +24,6 @@ void FireStorm::route(http_request request) {
   error.not_found().send(request);
 }
 
-// Handle middlewares
-Outcome FireStorm::handle_middlewares(http_request request) {
-  for (MiddleWare middleware : middlewares) {
-    try {
-      if (middleware.handler(request) == Outcome::Failure) {
-        middleware.failure().send(request);
-        return Outcome::Failure;
-      }
-    } catch (http_status_code s) {
-      error.from(s)().send(request);
-      return Outcome::Failure;
-    } catch (...) {
-      error.internal_server_error().send(request);
-      return Outcome::Failure;
-    }
-  }
-  return Outcome::Success;
-}
-
 // Register a route
 FireStorm FireStorm::add_route(Route *route) {
   routes.push_back(route);
@@ -114,8 +95,6 @@ void FireStorm::ignite(unsigned int port) {
     // Don't route the request if a middleware failed otherwise it'll try
     // sending 2 responses to the same request which creates unpredictable
     // behaviour.
-    if (handle_middlewares(request) == Outcome::Success) {
-      route(request);
-    }
+    route(request);
   }
 }
