@@ -9,9 +9,9 @@ enum OutcomeKind {
   Failure,
 };
 
-template <typename R> struct Outcome {
+template <typename T> struct Outcome {
   OutcomeKind kind;
-  R route;
+  T result;
 };
 
 template <typename R> class MiddleWare {
