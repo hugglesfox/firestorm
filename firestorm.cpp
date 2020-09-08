@@ -43,44 +43,10 @@ Outcome FireStorm::handle_middlewares(http_request request) {
   return Outcome::Success;
 }
 
-// Returns a boolean of whether a route already exists
-bool FireStorm::is_duplicate(Route r) {
-  for (Route route : routes) {
-    if (route.uri == r.uri && route.method == r.method) {
-      return true;
-    }
-  }
-  return false;
-}
-
 // Register a route
-FireStorm FireStorm::add_route(string uri, RouteFn fn, http_method method) {
-  Route route = {uri, method, fn};
-  if (!is_duplicate(route)) {
-    routes.push_back(route);
-    return *this;
-  }
-  throw std::invalid_argument("Duplicate route: " + uri);
-}
-
-// Register a get route
-FireStorm FireStorm::get(string uri, RouteFn fn) {
-  return add_route(uri, fn, HTTP_GET_METHOD);
-}
-
-// Register a post route
-FireStorm FireStorm::post(string uri, RouteFn fn) {
-  return add_route(uri, fn, HTTP_POST_METHOD);
-}
-
-// Register a put route
-FireStorm FireStorm::put(string uri, RouteFn fn) {
-  return add_route(uri, fn, HTTP_PUT_METHOD);
-}
-
-// Register a delete route
-FireStorm FireStorm::del(string uri, RouteFn fn) {
-  return add_route(uri, fn, HTTP_DELETE_METHOD);
+FireStorm FireStorm::add_route(Route *route) {
+  routes.push_back(route);
+  return *this;
 }
 
 // Error register error handler
