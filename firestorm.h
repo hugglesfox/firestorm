@@ -2,21 +2,20 @@
 #define FIRESTORM
 
 #include "include/splashkit/splashkit.h"
-#include <unordered_map>
 #include <csignal>
+#include <unordered_map>
 
+#include "error.h"
+#include "middleware.h"
 #include "response.h"
 #include "routing.h"
 #include "utils.h"
-#include "error.h"
-#include "middleware.h"
 
 class FireStorm {
 private:
   Error error;
-  vector<Route*> routes;
+  vector<Route *> routes;
   void route(http_request request);
-  bool is_duplicate(Route r);
 
 public:
   FireStorm add_route(Route *route);

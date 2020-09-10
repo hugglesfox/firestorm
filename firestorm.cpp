@@ -7,18 +7,19 @@ void sigint(int signal) { exit(0); }
 
 // Route a request
 void FireStorm::route(http_request request) {
-  for (Route route : routes) {
-    if (route.matches(request)) {
-      try {
-        route.route(request).send(request);
-        return;
-      } catch (http_status_code s) {
-        error.from(s)().send(request);
-        return;
-      } catch (...) {
-        error.internal_server_error().send(request);
-        return;
-      }
+  for (Route *route : routes) {
+    try {
+      route->set_request(request);
+      route->middlewares();
+      route->route().send(request);
+      write_line((int)routes.size());
+      return;
+    } catch (http_status_code s) {
+      error.from(s)().send(request);
+      return;
+    } catch (...) {
+      error.internal_server_error().send(request);
+      return;
     }
   }
   error.not_found().send(request);
@@ -71,20 +72,6 @@ FireStorm FireStorm::service_unavailable(ErrorFn fn) {
   return *this;
 }
 
-// Register a middleware that will either always throw or always succeed
-FireStorm FireStorm::middleware(MiddleWareFn fn) {
-  MiddleWare middleware = {fn, error.internal_server_error};
-  middlewares.push_back(middleware);
-  return *this;
-}
-
-// Register a middleware with a custom failure handler
-FireStorm FireStorm::middleware(MiddleWareFn fn, ErrorFn failure) {
-  MiddleWare middleware = {fn, failure};
-  middlewares.push_back(middleware);
-  return *this;
-}
-
 // Start the server
 void FireStorm::ignite(unsigned int port) {
   web_server server = start_web_server(port);
@@ -92,9 +79,6 @@ void FireStorm::ignite(unsigned int port) {
     signal(SIGINT, sigint);
     http_request request = next_web_request(server);
 
-    // Don't route the request if a middleware failed otherwise it'll try
-    // sending 2 responses to the same request which creates unpredictable
-    // behaviour.
     route(request);
   }
 }
