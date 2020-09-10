@@ -27,7 +27,7 @@ public:
   UriVars vars;
 
   void set_request(http_request request) { request = request; }
-  virtual Outcome middlewares() { return Outcome::Failure; };
+  virtual Outcome middlewares() { return Outcome::Success; };
   virtual Response route() { throw HTTP_STATUS_NOT_FOUND; }
 };
 
