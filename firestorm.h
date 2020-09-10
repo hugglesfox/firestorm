@@ -3,7 +3,6 @@
 
 #include "include/splashkit/splashkit.h"
 #include <csignal>
-#include <unordered_map>
 
 #include "error.h"
 #include "middleware.h"
@@ -11,7 +10,6 @@
 #include "response.h"
 #include "route.h"
 #include "router.h"
-#include "utils.h"
 
 class FireStorm {
 private:
