@@ -12,7 +12,7 @@ enum Outcome {
 
 template <typename R> class MiddleWare {
 public:
-  virtual Outcome handle(R route, http_request request) {
+  virtual Outcome handle(R &route, http_request request) {
     throw HTTP_STATUS_INTERNAL_SERVER_ERROR;
   }
 };
