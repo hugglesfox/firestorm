@@ -5,9 +5,18 @@
 #include "../middleware.h"
 
 template <typename R> class Method : public MiddleWare<R> {
+private:
   http_method method;
 
-  Outcome handle(R *route, http_request request);
+public:
+  Method(http_method method) : method(method) {}
+
+  Outcome handle(R &route, http_request request) {
+    if (request_method(request) == method) {
+      return Outcome::Success;
+    }
+    return Outcome::Failure;
+  }
 };
 
 #endif
