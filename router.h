@@ -14,6 +14,7 @@ private:
 public:
   Router(http_method method, vector<string> uris)
       : method(method), uris(uris) {}
+
   Outcome handle(R &route, http_request request) {
     for (string uri : uris) {
       if (request_method(request) == method && uri_matches(request, uri)) {
