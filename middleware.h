@@ -28,6 +28,7 @@ public:
   Outcome outcome(R &route) {
     for (MiddleWare<R> *middleware : middlewares) {
       if (middleware->handle(route, route.request) == Outcome::Failure) {
+        delete middleware;
         return Outcome::Failure;
       }
       // Avoid a memory leak
