@@ -109,11 +109,11 @@ template <typename R> bool ParseUriVars<R>::matches(http_request request) {
 }
 
 template <typename R>
-Outcome<R> ParseUriVars<R>::handle(R &route, http_request request) {
+Outcome ParseUriVars<R>::handle(R *route, http_request request) {
   if (matches(request)) {
     route->args = arg_vars(request);
-    Outcome<R>{OutcomeKind::Success, route};
+    return Outcome::Success;
   }
 
-  return Outcome<R>{OutcomeKind::Failure, route};
+  return Outcome::Failure;
 }

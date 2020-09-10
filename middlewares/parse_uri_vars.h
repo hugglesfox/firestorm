@@ -18,7 +18,7 @@ private:
 
 public:
   string uri;
-  Outcome<R> handle(R &route, http_request request);
+  Outcome handle(R *route, http_request request);
 };
 
 #endif

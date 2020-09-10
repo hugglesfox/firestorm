@@ -4,19 +4,14 @@
 #include "include/splashkit/splashkit.h"
 #include "error.h"
 
-enum OutcomeKind {
+enum Outcome {
   Success,
   Failure,
 };
 
-template <typename T> struct Outcome {
-  OutcomeKind kind;
-  T result;
-};
-
 template <typename R> class MiddleWare {
 public:
-  virtual Outcome<R> handle(http_request request) {
+  virtual Outcome handle(http_request request) {
     throw HTTP_STATUS_INTERNAL_SERVER_ERROR;
   }
 };
