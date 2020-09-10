@@ -10,9 +10,10 @@ void FireStorm::route(http_request request) {
   for (Route *route : routes) {
     try {
       route->set_request(request);
-      route->middlewares();
-      route->route().send(request);
-      return;
+      if (route->middlewares() != Outcome::Failure) {
+        route->route().send(request);
+        return;
+      }
     } catch (http_status_code s) {
       error.from(s)().send(request);
       return;
