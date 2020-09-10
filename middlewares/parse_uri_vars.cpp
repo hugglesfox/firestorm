@@ -81,8 +81,8 @@ template <typename R> UriVars ParseUriVars<R>::arg_vars(http_request request) {
 // Returns a combination of path_vars() and arg_vars()
 template <typename R> UriVars ParseUriVars<R>::uri_vars(http_request request) {
   UriVars result = path_vars(request);
-
   UriVars args = arg_vars(request);
+
   result.insert(args.begin(), args.end());
   return result;
 }
@@ -111,7 +111,7 @@ template <typename R> bool ParseUriVars<R>::matches(http_request request) {
 template <typename R>
 Outcome ParseUriVars<R>::handle(R &route, http_request request) {
   if (matches(request)) {
-    route.args = arg_vars(request);
+    route.args = uri_vars(request);
     return Outcome::Success;
   }
 
