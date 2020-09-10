@@ -6,19 +6,23 @@
 #include "middleware.h"
 #include "utils.h"
 
-
 template <typename R> class Router : public MiddleWare<R> {
 private:
   http_method method;
   vector<string> uris;
 
-  public:
+public:
   Router(http_method method, vector<string> uris)
       : method(method), uris(uris) {}
-  Outcome handle(R &route, http_request request);
+  Outcome handle(R &route, http_request request) {
+    for (string uri : uris) {
+      if (request_method(request) == method && uri_matches(request, uri)) {
+        route.args = uri_vars(request, uri);
+        return Outcome::Success;
+      }
+    }
+    return Outcome::Failure;
+  }
 };
-
-#define FIRESTORM_ROUTER_FUNCTIONS
-#include "router.cpp"
 
 #endif
