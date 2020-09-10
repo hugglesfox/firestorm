@@ -1,38 +1,6 @@
-#include "parse_uri_vars.h"
-
-// Checks to see if the inputted string is a path variable identifier.
-// If do then it returns the identifier name, otherwise returns an empty string.
-template<typename R> string ParseUriVars<R>::parse_identifier(string id) {
-  if (id.length() > 2 && id[0] == '<' && id[id.length() - 1]) {
-    return id.substr(1, id.length() - 2);
-  }
-
-  return "";
-}
-
-// Splits a string at / ignoring arguments
-template <typename R> vector<string> ParseUriVars<R>::split_path(string uri) {
-  string path = split_at(uri, '?')[0];
-  return split_at(path, '/');
-}
-
-// Split a string at & ignoring path
-template <typename R> vector<string> ParseUriVars<R>::split_args(string uri) {
-  vector<string> uri_parts = split_at(uri, '?');
-
-  // Remove the path bit
-  uri_parts.front() = uri_parts.back();
-  uri_parts.pop_back();
-
-  // The HTTP spec states that only the first ? has any significance
-  string args;
-  for (string arg : uri_parts) {
-    args += '?' + arg;
-  }
-  args.erase(0, 1);
-
-  return split_at(args, '&');
-}
+#ifndef FIRESTORM_ROUTER_FUNCTIONS
+#include "router.h"
+#else
 
 // Returns an unordered map of the variable path identifiers and the correlating
 // values from a request.
@@ -40,7 +8,7 @@ template <typename R> vector<string> ParseUriVars<R>::split_args(string uri) {
 // For an example if the variable path was /animal/<animal>
 // then the request /animal/dog
 // would result in {"animal": "dog"} being returned.
-template <typename R> UriVars ParseUriVars<R>::path_vars(http_request request) {
+template <typename R> UriVars Router<R>::path_vars(http_request request) {
   UriVars result;
 
   vector<string> request_stubs = request_uri_stubs(request);
@@ -63,7 +31,7 @@ template <typename R> UriVars ParseUriVars<R>::path_vars(http_request request) {
 // For an example if the variable path was /animal?<name>
 // then the request /animal?name=spot
 // would result in {"name": "spot"} being returned.
-template <typename R> UriVars ParseUriVars<R>::arg_vars(http_request request) {
+template <typename R> UriVars Router<R>::arg_vars(http_request request) {
   UriVars result;
   vector<string> arg_vars = split_args(uri);
 
@@ -79,7 +47,7 @@ template <typename R> UriVars ParseUriVars<R>::arg_vars(http_request request) {
 }
 
 // Returns a combination of path_vars() and arg_vars()
-template <typename R> UriVars ParseUriVars<R>::uri_vars(http_request request) {
+template <typename R> UriVars Router<R>::uri_vars(http_request request) {
   UriVars result = path_vars(request);
   UriVars args = arg_vars(request);
 
@@ -88,7 +56,7 @@ template <typename R> UriVars ParseUriVars<R>::uri_vars(http_request request) {
 }
 
 // Returns a boolean of whether a request matches a route.
-template <typename R> bool ParseUriVars<R>::matches(http_request request) {
+template <typename R> bool Router<R>::matches(http_request request) {
   // Handle variable paths
   vector<string> request_stubs = request_uri_stubs(request);
   vector<string> route_stubs = split_path(uri);
@@ -104,16 +72,16 @@ template <typename R> bool ParseUriVars<R>::matches(http_request request) {
       return false;
     }
   }
-
   return true;
 }
 
 template <typename R>
-Outcome ParseUriVars<R>::handle(R &route, http_request request) {
-  if (matches(request)) {
+Outcome Router<R>::handle(R &route, http_request request) {
+  if (request_method(request) == method && matches(request)) {
     route.args = uri_vars(request);
     return Outcome::Success;
   }
-
   return Outcome::Failure;
 }
+
+#endif

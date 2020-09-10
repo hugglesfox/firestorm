@@ -10,6 +10,7 @@
 #include "outcome.h"
 #include "response.h"
 #include "route.h"
+#include "router.h"
 #include "utils.h"
 
 class FireStorm {
