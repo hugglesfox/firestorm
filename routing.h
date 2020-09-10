@@ -24,7 +24,7 @@ protected:
   }
 
 public:
-  void set_request(http_request request) { request = request; }
+  void set_request(http_request r) { request = r; }
   virtual Outcome middlewares() { return Outcome::Success; };
   virtual Response route() { throw HTTP_STATUS_NOT_FOUND; }
 };
