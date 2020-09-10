@@ -12,7 +12,6 @@ void FireStorm::route(http_request request) {
       route->set_request(request);
       route->middlewares();
       route->route().send(request);
-      write_line((int)routes.size());
       return;
     } catch (http_status_code s) {
       error.from(s)().send(request);
