@@ -9,7 +9,7 @@ void sigint(int signal) { exit(0); }
 void FireStorm::route(http_request request) {
   for (Route *route : routes) {
     try {
-      route->set_request(request);
+      route->request = request;
       if (route->middlewares() != Outcome::Failure) {
         route->route().send(request);
         return;

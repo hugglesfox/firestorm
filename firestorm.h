@@ -7,6 +7,7 @@
 
 #include "error.h"
 #include "middleware.h"
+#include "outcome.h"
 #include "response.h"
 #include "route.h"
 #include "utils.h"
