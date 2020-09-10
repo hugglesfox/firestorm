@@ -97,7 +97,7 @@ public:
 
   Outcome handle(R &route, http_request request) {
     if (matches(request)) {
-      route->args = arg_vars(request);
+      route.args = arg_vars(request);
       return Outcome::Success;
     }
 
