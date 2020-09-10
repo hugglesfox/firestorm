@@ -10,13 +10,9 @@ private:
 
 public:
   Method(http_method method) : method(method) {}
-
-  Outcome handle(R &route, http_request request) {
-    if (request_method(request) == method) {
-      return Outcome::Success;
-    }
-    return Outcome::Failure;
-  }
+  Outcome handle(R &route, http_request request);
 };
+
+#include "method.cpp"
 
 #endif
