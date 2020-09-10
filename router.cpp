@@ -8,7 +8,8 @@
 // For an example if the variable path was /animal/<animal>
 // then the request /animal/dog
 // would result in {"animal": "dog"} being returned.
-template <typename R> UriVars Router<R>::path_vars(http_request request) {
+template <typename R>
+UriVars Router<R>::path_vars(http_request request, string uri) {
   UriVars result;
 
   vector<string> request_stubs = request_uri_stubs(request);
@@ -31,7 +32,8 @@ template <typename R> UriVars Router<R>::path_vars(http_request request) {
 // For an example if the variable path was /animal?<name>
 // then the request /animal?name=spot
 // would result in {"name": "spot"} being returned.
-template <typename R> UriVars Router<R>::arg_vars(http_request request) {
+template <typename R>
+UriVars Router<R>::arg_vars(http_request request, string uri) {
   UriVars result;
   vector<string> arg_vars = split_args(uri);
 
@@ -47,16 +49,18 @@ template <typename R> UriVars Router<R>::arg_vars(http_request request) {
 }
 
 // Returns a combination of path_vars() and arg_vars()
-template <typename R> UriVars Router<R>::uri_vars(http_request request) {
-  UriVars result = path_vars(request);
-  UriVars args = arg_vars(request);
+template <typename R>
+UriVars Router<R>::uri_vars(http_request request, string uri) {
+  UriVars result = path_vars(request, uri);
+  UriVars args = arg_vars(request, uri);
 
   result.insert(args.begin(), args.end());
   return result;
 }
 
 // Returns a boolean of whether a request matches a route.
-template <typename R> bool Router<R>::matches(http_request request) {
+template <typename R>
+bool Router<R>::matches(http_request request, string uri) {
   // Handle variable paths
   vector<string> request_stubs = request_uri_stubs(request);
   vector<string> route_stubs = split_path(uri);
@@ -77,9 +81,11 @@ template <typename R> bool Router<R>::matches(http_request request) {
 
 template <typename R>
 Outcome Router<R>::handle(R &route, http_request request) {
-  if (request_method(request) == method && matches(request)) {
-    route.args = uri_vars(request);
-    return Outcome::Success;
+  for (string uri : uris) {
+    if (request_method(request) == method && matches(request, uri)) {
+      route.args = uri_vars(request, uri);
+      return Outcome::Success;
+    }
   }
   return Outcome::Failure;
 }

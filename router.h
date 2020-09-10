@@ -12,15 +12,16 @@ using UriVars = std::unordered_map<string, string>;
 template <typename R> class Router : public MiddleWare<R> {
 private:
   http_method method;
-  string uri;
+  vector<string> uris;
 
-  UriVars path_vars(http_request request);
-  UriVars arg_vars(http_request request);
-  UriVars uri_vars(http_request request);
-  bool matches(http_request request);
+  UriVars path_vars(http_request request, string uri);
+  UriVars arg_vars(http_request request, string uri);
+  UriVars uri_vars(http_request request, string uri);
+  bool matches(http_request request, string uri);
 
 public:
-  Router(http_method method, string uri) : method(method), uri(uri) {}
+  Router(http_method method, vector<string> uris)
+      : method(method), uris(uris) {}
   Outcome handle(R &route, http_request request);
 };
 
