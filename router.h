@@ -26,8 +26,15 @@ private:
   vector<string> uris;
 
 public:
-  Router(http_method method, vector<string> uris)
-      : method(method), uris(uris) {}
+  Router(http_method method, vector<string> paths) : method(method) {
+    // Remove any trailing slashes from uris
+    for (string &uri : paths) {
+      if (uri.back() == '/') {
+        uri.pop_back();
+      }
+    }
+    uris = paths;
+  }
 
   Outcome handle(R &route, http_request request) {
     for (string uri : uris) {
