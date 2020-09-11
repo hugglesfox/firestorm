@@ -6,7 +6,8 @@ Headers headers(http_request request) {
   for (string header : request_headers(request)) {
     // Only the first : should be considered
     vector<string> parts = split_at_first(header, ':');
-    result[parts.front()] = result[parts.back()];
+    string name = parts.front();
+    result[name] = trim(parts.back());
   }
   return result;
 }
