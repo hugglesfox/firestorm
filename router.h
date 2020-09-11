@@ -31,7 +31,7 @@ public:
   Outcome handle(R &route, http_request request) {
     for (string uri : uris) {
       if (request_method(request) == method && uri_matches(request, uri)) {
-        route.args = uri_vars(request, uri);
+        route.uri_args = uri_vars(request, uri);
         return Outcome::Success;
       }
     }
