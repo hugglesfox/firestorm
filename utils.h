@@ -5,5 +5,6 @@
 #include <vector>
 
 std::vector<std::string> split_at(std::string s, char c);
+std::vector<std::string> split_at_first(std::string s, char c);
 
 #endif
