@@ -20,18 +20,8 @@ vector<string> split_path(string uri) {
 
 // Split a string at & ignoring path
 vector<string> split_args(string uri) {
-  vector<string> uri_parts = split_at(uri, '?');
-
-  // Remove the path bit
-  uri_parts.erase(uri_parts.begin());
-
-  // The HTTP spec states that only the first ? has any significance
-  string args;
-  for (string arg : uri_parts) {
-    args += '?' + arg;
-  }
-  args.erase(0, 1);
-
+  // The HTTP spec states that only the first ? should be considered
+  string args = split_at_first(uri, '?').back();
   return split_at(args, '&');
 }
 
