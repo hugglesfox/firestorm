@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "middleware.h"
+#include "utils.h"
 
 using UriArgs = std::unordered_map<string, string>;
 
