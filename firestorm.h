@@ -5,6 +5,7 @@
 #include <csignal>
 
 #include "error.h"
+#include "headers.h"
 #include "middleware.h"
 #include "outcome.h"
 #include "response.h"
