@@ -53,7 +53,7 @@ public:
 // A route to list all the todos
 class ListTodos : public Route {
 public:
-  UriVars uri_args;
+  UriArgs uri_args;
   vector<Todo> *db;
 
   Outcome middlewares() {
@@ -79,7 +79,7 @@ public:
 // A route to get a specific todo
 class GetTodo : public Route {
 public:
-  UriVars uri_args;
+  UriArgs uri_args;
   vector<Todo> *db;
 
   // Register middlewares
@@ -108,7 +108,7 @@ public:
 // A route to create a new todo
 class CreateTodo : public Route {
 public:
-  UriVars uri_args;
+  UriArgs uri_args;
   Todo body;
   vector<Todo> *db;
 
@@ -135,7 +135,7 @@ public:
 // A route to delete a todo
 class DeleteTodo : public Route {
 public:
-  UriVars uri_args;
+  UriArgs uri_args;
   vector<Todo> *db;
 
   // Register middlewares

@@ -63,8 +63,8 @@ vector<string> split_args(string uri) {
 // For an example if the variable path was /animal/<animal>
 // then the request /animal/dog
 // would result in {"animal": "dog"} being returned.
-UriVars path_vars(http_request request, string uri) {
-  UriVars result;
+UriArgs path_vars(http_request request, string uri) {
+  UriArgs result;
 
   vector<string> request_stubs = request_uri_stubs(request);
   vector<string> path_stubs = split_path(uri);
@@ -86,8 +86,8 @@ UriVars path_vars(http_request request, string uri) {
 // For an example if the variable path was /animal?<name>
 // then the request /animal?name=spot
 // would result in {"name": "spot"} being returned.
-UriVars arg_vars(http_request request, string uri) {
-  UriVars result;
+UriArgs arg_vars(http_request request, string uri) {
+  UriArgs result;
   vector<string> arg_vars = split_args(uri);
 
   for (string &var : arg_vars) {
@@ -102,9 +102,9 @@ UriVars arg_vars(http_request request, string uri) {
 }
 
 // Returns a combination of path_vars() and arg_vars()
-UriVars uri_vars(http_request request, string uri) {
-  UriVars result = path_vars(request, uri);
-  UriVars args = arg_vars(request, uri);
+UriArgs uri_vars(http_request request, string uri) {
+  UriArgs result = path_vars(request, uri);
+  UriArgs args = arg_vars(request, uri);
 
   result.insert(args.begin(), args.end());
   return result;
