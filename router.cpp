@@ -23,8 +23,7 @@ vector<string> split_args(string uri) {
   vector<string> uri_parts = split_at(uri, '?');
 
   // Remove the path bit
-  uri_parts.front() = uri_parts.back();
-  uri_parts.pop_back();
+  uri_parts.erase(uri_parts.begin());
 
   // The HTTP spec states that only the first ? has any significance
   string args;
