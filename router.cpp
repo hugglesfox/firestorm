@@ -14,7 +14,7 @@ string parse_identifier(string id) {
 
 // Splits a string at / ignoring arguments
 vector<string> split_path(string uri) {
-  string path = split_at(uri, '?')[0];
+  string path = split_at(uri, '?').front();
   return split_at(path, '/');
 }
 
