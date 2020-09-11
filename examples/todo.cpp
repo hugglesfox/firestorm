@@ -1,9 +1,13 @@
 #include "../firestorm.h"
 #include "../include/splashkit/splashkit.h"
+#include <stdexcept>
 
-struct Todo {
+class Todo {
+public:
   string text;
   bool is_done;
+
+  bool operator==(Todo other) { return text == other.text; }
 
   json to_json() {
     json todo = create_json();
@@ -13,92 +17,156 @@ struct Todo {
   }
 };
 
-// To do database
-vector<Todo> todos = {};
+// The Todo "database"
+vector<Todo> todos;
 
-// Gets updated on each request depending on the data sent.
-// This might not always be a valid todo.
-Todo current_todo;
-
-// Middleware to attempt to parse the current todo from a request
-Outcome parse_todo(http_request request) {
-  // This is gonna be annoying and log warnings unless it's a post request.
-  json body = json_from_string(request_body(request));
-
-  // Update current_todo
-  if (json_has_key(body, "text")) {
-    current_todo.text = json_read_string(body, "text");
+// A middleware to create a connection to the database
+template <typename R> class TodoDb : public MiddleWare<R> {
+public:
+  Outcome handle(R &route, http_request _) {
+    route.db = &todos;
+    return Outcome::Success;
   }
+};
 
-  if (json_has_key(body, "is_done")) {
-    current_todo.is_done = json_read_bool(body, "is_done");
-  }
+// A middleware to parse Todo objects from json request bodies
+template <typename R> class ParseTodo : public MiddleWare<R> {
+public:
+  Outcome handle(R &route, http_request request) {
+    json body = json_from_string(request_body(request));
 
-  return Outcome::Success;
-}
+    if (json_has_key(body, "text") && json_has_key(body, "is_done")) {
+      try {
+        Todo todo = {json_read_string(body, "text"),
+                     json_read_bool(body, "is_done")};
+        route.body = todo;
+      } catch (...) {
+        throw HTTP_STATUS_BAD_REQUEST;
+      }
+      return Outcome::Success;
+    }
 
-// A GET route for /todos to list all the todos
-Response list_todos(UriVars _) {
-  vector<json> todos_json;
-  for (Todo todo : todos) {
-    todos_json.push_back(todo.to_json());
-  }
-
-  json response = create_json();
-  json_set_array(response, "todos", todos_json);
-
-  return json_data(response, HTTP_STATUS_OK);
-}
-
-// A GET route for /todos/<id> to list a single todo
-Response get_todo(UriVars vars) {
-  if (!is_number(vars["id"])) {
     throw HTTP_STATUS_BAD_REQUEST;
   }
+};
 
-  int i = convert_to_integer(vars["id"]);
+// A route to list all the todos
+class ListTodos : public Route {
+public:
+  UriVars uri_args;
+  vector<Todo> *db;
 
-  try {
-    return json_data(todos.at(i).to_json(), HTTP_STATUS_OK);
-  } catch (...) {
-    throw HTTP_STATUS_NOT_FOUND;
-  }
-}
-
-// A POST route for /todos to create a new todo
-Response create_todo(UriVars _) {
-  if (current_todo.text != "") {
-    todos.push_back(current_todo);
-    return json_data(current_todo.to_json(), HTTP_STATUS_CREATED);
+  Outcome middlewares() {
+    return MiddleWares<ListTodos>()
+        .add(new Router<ListTodos>(HTTP_GET_METHOD, {"/todos"}))
+        .add(new TodoDb<ListTodos>())
+        .outcome(*this);
   }
 
-  throw HTTP_STATUS_BAD_REQUEST;
-}
+  // Register middlewares
+  Response route() {
+    vector<json> json_todos;
+    for (Todo todo : *db) {
+      json_todos.push_back(todo.to_json());
+    }
 
-// A DELETE route for /todos/<id> to delete a todo
-Response delete_todo(UriVars vars) {
-  if (!is_number(vars["id"])) {
-    throw HTTP_STATUS_BAD_REQUEST;
+    json response = create_json();
+    json_set_array(response, "todos", json_todos);
+    return json_data(response, HTTP_STATUS_OK);
+  }
+};
+
+// A route to get a specific todo
+class GetTodo : public Route {
+public:
+  UriVars uri_args;
+  vector<Todo> *db;
+
+  // Register middlewares
+  Outcome middlewares() {
+    return MiddleWares<GetTodo>()
+        .add(new Router<GetTodo>(HTTP_GET_METHOD, {"/todos/<id>"}))
+        .add(new TodoDb<GetTodo>())
+        .outcome(*this);
   }
 
-  int i = convert_to_integer(vars["id"]);
+  Response route() {
+    if (!is_integer(uri_args["id"])) {
+      throw HTTP_STATUS_NOT_FOUND;
+    }
 
-  try {
-    todos.erase(todos.begin() + i);
-  } catch (...) {
+    int id = convert_to_integer(uri_args["id"]);
+
+    try {
+      return json_data(db->at(id).to_json(), HTTP_STATUS_OK);
+    } catch (const std::out_of_range &) {
+      throw HTTP_STATUS_NOT_FOUND;
+    }
+  }
+};
+
+// A route to create a new todo
+class CreateTodo : public Route {
+public:
+  UriVars uri_args;
+  Todo body;
+  vector<Todo> *db;
+
+  // Register middlewares
+  Outcome middlewares() {
+    return MiddleWares<CreateTodo>()
+        .add(new Router<CreateTodo>(HTTP_POST_METHOD, {"/todos"}))
+        .add(new ParseTodo<CreateTodo>())
+        .add(new TodoDb<CreateTodo>())
+        .outcome(*this);
   }
 
-  // Return 203 no matter whether it failed or not as if the todo your trying to
-  // delete already doesn't exist then it was still a successful deletion.
-  return status(HTTP_STATUS_NO_CONTENT);
-}
+  Response route() {
+    for (Todo todo : *db) {
+      if (todo == body) {
+        throw HTTP_STATUS_FORBIDDEN;
+      }
+    }
+    todos.push_back(body);
+    return json_data(body.to_json(), HTTP_STATUS_CREATED);
+  }
+};
+
+// A route to delete a todo
+class DeleteTodo : public Route {
+public:
+  UriVars uri_args;
+  vector<Todo> *db;
+
+  // Register middlewares
+  Outcome middlewares() {
+    return MiddleWares<DeleteTodo>()
+        .add(new Router<DeleteTodo>(HTTP_DELETE_METHOD, {"/todos/<id>"}))
+        .add(new TodoDb<DeleteTodo>())
+        .outcome(*this);
+  }
+
+  Response route() {
+    if (!is_integer(uri_args["id"])) {
+      throw HTTP_STATUS_NO_CONTENT;
+    }
+
+    int id = convert_to_integer(uri_args["id"]);
+
+    try {
+      db->erase(db->begin() + id);
+    } catch (...) {
+    }
+    throw HTTP_STATUS_NO_CONTENT;
+  }
+};
 
 int main() {
   FireStorm()
-      .get("/todos", list_todos)
-      .get("/todos/<id>", get_todo)
-      .post("/todos", create_todo)
-      .del("/todos/<id>", delete_todo)
-      .middleware(parse_todo)
+      .add_route(new ListTodos())
+      .add_route(new GetTodo())
+      .add_route(new CreateTodo())
+      .add_route(new DeleteTodo())
       .ignite(5000);
+  return 0;
 }
