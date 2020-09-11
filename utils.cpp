@@ -1,7 +1,5 @@
 #include "utils.h"
 
-using namespace std;
-
 // Split a string at a character.
 // If the string starts with character being split, there will be an empty
 // string in the 0th position of the returned array.
