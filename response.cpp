@@ -11,9 +11,9 @@ Response status(http_status_code status) {
 }
 
 Response plain(string text, http_status_code status) {
-  return Response{status, {}, "text/plain", text};
+  return Response{status, {}, "text/plain", text + "\n"};
 }
 
 Response json_data(json data, http_status_code status) {
-  return Response{status, {}, "application/json", json_to_string(data)};
+  return Response{status, {}, "application/json", json_to_string(data) + "\n"};
 }
