@@ -4,6 +4,7 @@
 #include "include/splashkit/splashkit.h"
 #include <csignal>
 
+#include "cookie.h"
 #include "error.h"
 #include "headers.h"
 #include "middleware.h"

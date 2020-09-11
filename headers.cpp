@@ -11,3 +11,14 @@ Headers headers(http_request request) {
   }
   return result;
 }
+
+// Constructs a Cookies type from http_request
+Cookies cookies(http_request request) {
+  Cookies result;
+  string cookies = headers(request)["Cookie"];
+  for (string cookie : split_at(cookies, ';')) {
+    vector<string> parts = split_at(trim(cookie), '=');
+    result[parts.front()] = parts.back();
+  }
+  return result;
+}

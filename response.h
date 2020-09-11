@@ -3,12 +3,15 @@
 
 #include "include/splashkit/splashkit.h"
 
+#include "cookie.h"
+
 struct Response {
   http_status_code status;
   vector<string> headers;
   string content_type;
   string body;
 
+  Response add_cookie(Cookie cookie);
   void send(http_request request);
 };
 

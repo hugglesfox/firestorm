@@ -1,7 +1,4 @@
 #include "firestorm.h"
-#include "include/splashkit/splashkit.h"
-
-using namespace std;
 
 void sigint(int signal) { exit(0); }
 
