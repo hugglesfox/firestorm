@@ -29,7 +29,7 @@ public:
   }
 };
 
-// A middlware to authorize users using a http header
+// A middleware to authorize users using a http header
 template <typename R> class Authenticate : public MiddleWare<R> {
 public:
   Outcome handle(R &_, http_request request) {
