@@ -29,6 +29,17 @@ public:
   }
 };
 
+// A middlware to authorize users using a http header
+template <typename R> class Authenticate : public MiddleWare<R> {
+public:
+  Outcome handle(R &_, http_request request) {
+    if (headers(request)["Authorization"] == "Bearer auth_token") {
+      return Outcome::Success;
+    }
+    throw HTTP_STATUS_UNAUTHORIZED;
+  }
+};
+
 // A middleware to parse Todo objects from json request bodies
 template <typename R> class ParseTodo : public MiddleWare<R> {
 public:
@@ -116,6 +127,7 @@ public:
   Outcome middlewares() {
     return MiddleWares<CreateTodo>()
         .add(new Router<CreateTodo>(HTTP_POST_METHOD, {"/todos"}))
+        .add(new Authenticate<CreateTodo>())
         .add(new ParseTodo<CreateTodo>())
         .add(new TodoDb<CreateTodo>())
         .outcome(*this);
@@ -142,6 +154,7 @@ public:
   Outcome middlewares() {
     return MiddleWares<DeleteTodo>()
         .add(new Router<DeleteTodo>(HTTP_DELETE_METHOD, {"/todos/<id>"}))
+        .add(new Authenticate<DeleteTodo>())
         .add(new TodoDb<DeleteTodo>())
         .outcome(*this);
   }
