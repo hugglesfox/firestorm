@@ -36,14 +36,3 @@ vector<string> split_at_first(string s, char c) {
 
   return {first, result};
 }
-
-// Checks to see if a string is a valid identifier (basically a string which
-// is wrapped in the character spcified)
-// If so then it returns the identifier name, otherwise returns an empty string.
-string parse_identifier(string s, char left, char right) {
-  if (s.length() > 2 && s.front() == left && s.back() == right) {
-    return s.substr(1, s.length() - 2);
-  }
-
-  return "";
-}
