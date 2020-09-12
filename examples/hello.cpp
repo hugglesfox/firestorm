@@ -1,11 +1,9 @@
 #include "../src/firestorm.h"
 
-using namespace std;
-
 // Create the route Hello
 class Hello : public Route {
 public:
-  // uri_args is a hashmap of strings containing variable uri names and their
+  // uri_args is a hashmap of strings containing variable identifiers and their
   // corresponding values
   UriArgs uri_args;
 
@@ -26,8 +24,7 @@ public:
 };
 
 int main() {
-  // A FireStorm instance and run the web server on port 5000
+  // Register the Hello route and run the web server on port 5000
   FireStorm().add_route(new Hello()).ignite(5000);
-
   return 0;
 }
