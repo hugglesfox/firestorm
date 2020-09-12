@@ -1,6 +1,8 @@
 # FireStorm
 
-FireStorm aims to be a simple web frame work which is built on top of [SplashKit’s](https://www.splashkit.io) networking features. FireStorm provides abstractions for routing, middlewares, cookies, redirects and more.
+FireStorm aims to be a simple yet flexible web frame work which is built on top of [SplashKit’s](https://www.splashkit.io) networking features. FireStorm provides abstractions for routing, middlewares, cookies, redirects and more.
+
+**Note:** FireStorm currently relies on features from the develop branch of skm.
 
 ```cpp
 #include "firestorm.h"
