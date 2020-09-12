@@ -5,7 +5,7 @@ using namespace std;
 // Checks to see if a string is a path variable identifier.
 // If do then it returns the identifier name, otherwise returns an empty string.
 string parse_identifier(string id) {
-  if (id.length() > 2 && id[0] == '<' && id[id.length() - 1]) {
+  if (id.length() > 2 && id[0] == '<' && id[id.length() - 1] == '>') {
     return id.substr(1, id.length() - 2);
   }
 
