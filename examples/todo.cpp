@@ -1,5 +1,4 @@
 #include "../src/firestorm.h"
-#include "../include/splashkit/splashkit.h"
 #include <stdexcept>
 
 class Todo {
