@@ -69,7 +69,7 @@ FireStorm FireStorm::service_unavailable(ErrorFn fn) {
   return *this;
 }
 
-// Start the server
+// Start the server on a port
 void FireStorm::ignite(unsigned int port) {
   web_server server = start_web_server(port);
   while (true) {
