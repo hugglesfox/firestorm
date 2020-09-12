@@ -6,6 +6,9 @@
 #include "middleware.h"
 #include "route.h"
 #include "router.h"
+#include "utils.h"
+
+string file_type(string filename);
 
 class StaticFile : public Route {
 private:
@@ -16,8 +19,14 @@ private:
 public:
   UriArgs uri_args;
 
-  StaticFile(string filename, string path, string content_type = "text/plain")
+  StaticFile(string filename, string path,
+             string content_type)
       : filename(filename), path(path), content_type(content_type) {}
+
+  StaticFile(string filename, string path)
+      : filename(filename), path(path) {
+        content_type = file_type(filename);
+      }
 
   Outcome middlewares() {
     return MiddleWares<StaticFile>()
