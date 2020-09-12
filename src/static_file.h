@@ -19,8 +19,7 @@ private:
 public:
   UriArgs uri_args;
 
-  StaticFile(string filename, string path,
-             string content_type)
+  StaticFile(string filename, string path, string content_type)
       : filename(filename), path(path), content_type(content_type) {}
 
   StaticFile(string filename, string path)
