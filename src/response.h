@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_RESPONSE
 #define FIRESTORM_RESPONSE
 
-#include "include/splashkit/splashkit.h"
+#include "../include/splashkit/splashkit.h"
 
 #include "cookie.h"
 

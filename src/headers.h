@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_HEADERS
 #define FIRESTORM_HEADERS
 
-#include "include/splashkit/splashkit.h"
+#include "../include/splashkit/splashkit.h"
 #include <unordered_map>
 
 #include "utils.h"

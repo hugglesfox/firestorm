@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_MIDDLEWARE
 #define FIRESTORM_MIDDLEWARE
 
-#include "include/splashkit/splashkit.h"
+#include "../include/splashkit/splashkit.h"
 
 #include "error.h"
 #include "outcome.h"

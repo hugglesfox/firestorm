@@ -1,4 +1,4 @@
-#include "../firestorm.h"
+#include "../src/firestorm.h"
 
 using namespace std;
 
