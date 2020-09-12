@@ -10,7 +10,7 @@
 template <typename R> class MiddleWare {
 public:
   virtual ~MiddleWare<R>() {}
-  virtual Outcome handle(R &route, http_request request) {
+  virtual Outcome outcome(R &route, http_request request) {
     throw HTTP_STATUS_INTERNAL_SERVER_ERROR;
   }
 };
@@ -27,7 +27,7 @@ public:
 
   Outcome outcome(R &route) {
     for (MiddleWare<R> *middleware : middlewares) {
-      if (middleware->handle(route, route._request) == Outcome::Failure) {
+      if (middleware->outcome(route, route._request) == Outcome::Failure) {
         delete middleware;
         return Outcome::Failure;
       }

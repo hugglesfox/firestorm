@@ -22,7 +22,7 @@ vector<Todo> todos;
 // A middleware to create a connection to the database
 template <typename R> class TodoDb : public MiddleWare<R> {
 public:
-  Outcome handle(R &route, http_request _) {
+  Outcome outcome(R &route, http_request _) {
     route.db = &todos;
     return Outcome::Success;
   }
@@ -31,7 +31,7 @@ public:
 // A middleware to authorize users using a http header
 template <typename R> class Authenticate : public MiddleWare<R> {
 public:
-  Outcome handle(R &_, http_request request) {
+  Outcome outcome(R &_, http_request request) {
     if (headers(request)["Authorization"] == "Bearer auth_token") {
       return Outcome::Success;
     }
@@ -42,7 +42,7 @@ public:
 // A middleware to parse Todo objects from json request bodies
 template <typename R> class ParseTodo : public MiddleWare<R> {
 public:
-  Outcome handle(R &route, http_request request) {
+  Outcome outcome(R &route, http_request request) {
     json body = json_from_string(request_body(request));
 
     if (json_has_key(body, "text") && json_has_key(body, "is_done")) {

@@ -36,7 +36,7 @@ public:
     uris = paths;
   }
 
-  Outcome handle(R &route, http_request request) {
+  Outcome outcome(R &route, http_request request) {
     for (string uri : uris) {
       if (request_method(request) == method && uri_matches(request, uri)) {
         route.uri_args = uri_vars(request, uri);
