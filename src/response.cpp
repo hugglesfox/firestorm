@@ -27,6 +27,13 @@ Response html(string filename, HtmlVars vars, http_status_code status) {
   return Response{status, {}, "text/html", parse_html(filename, vars)};
 }
 
+Response file(string filename, string content_type) {
+  return Response{HTTP_STATUS_OK,
+                  {},
+                  content_type,
+                  file_as_string(filename, SERVER_RESOURCE)};
+}
+
 Response redirect(string location) {
   return Response{HTTP_STATUS_SEE_OTHER, {"Location: " + location}};
 }

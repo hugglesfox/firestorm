@@ -20,6 +20,7 @@ Response status(http_status_code status);
 Response plain(string text, http_status_code status);
 Response json_data(json data, http_status_code status);
 Response html(string filename, HtmlVars vars, http_status_code status);
+Response file(string filename, string content_type);
 Response redirect(string location);
 
 #endif

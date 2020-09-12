@@ -13,6 +13,7 @@
 #include "response.h"
 #include "route.h"
 #include "router.h"
+#include "static_file.h"
 
 class FireStorm {
 private:
