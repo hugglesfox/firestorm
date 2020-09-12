@@ -1,5 +1,5 @@
-#ifndef FIRESTORM_ROUTING
-#define FIRESTORM_ROUTING
+#ifndef FIRESTORM_ROUTE
+#define FIRESTORM_ROUTE
 
 #include "../include/splashkit/splashkit.h"
 #include <memory>
