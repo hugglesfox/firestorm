@@ -11,7 +11,6 @@ using UriArgs = std::unordered_map<string, string>;
 
 vector<string> split_at(string s, char c);
 
-string parse_identifier(string id);
 vector<string> split_args(string uri);
 vector<string> split_path(string uri);
 

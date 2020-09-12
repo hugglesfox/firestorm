@@ -2,16 +2,6 @@
 
 using namespace std;
 
-// Checks to see if a string is a path variable identifier.
-// If do then it returns the identifier name, otherwise returns an empty string.
-string parse_identifier(string id) {
-  if (id.length() > 2 && id.front() == '<' && id.back() == '>') {
-    return id.substr(1, id.length() - 2);
-  }
-
-  return "";
-}
-
 // Splits a string at / ignoring arguments
 vector<string> split_path(string uri) {
   string path = split_at(uri, '?').front();
@@ -39,7 +29,7 @@ UriArgs path_vars(http_request request, string uri) {
   vector<string> path_stubs = split_path(uri);
 
   for (int i = 0; i < path_stubs.size(); i++) {
-    string id = parse_identifier(path_stubs[i]);
+    string id = parse_identifier(path_stubs[i], '<', '>');
 
     if (id.length() > 0) {
       result[id] = request_stubs[i];
@@ -60,7 +50,7 @@ UriArgs arg_vars(http_request request, string uri) {
   vector<string> arg_vars = split_args(uri);
 
   for (string &var : arg_vars) {
-    string id = parse_identifier(var);
+    string id = parse_identifier(var, '<', '>');
 
     if (id.length() > 0) {
       result[id] = request_query_parameter(request, id, "");
@@ -91,7 +81,7 @@ bool uri_matches(http_request request, string uri) {
 
   for (int i = 0; i < request_stubs.size(); i++) {
     // Handle a variable path segment
-    string id = parse_identifier(route_stubs[i]);
+    string id = parse_identifier(route_stubs[i], '<', '>');
     if (!(id.size() > 0 || request_stubs[i] == route_stubs[i])) {
       return false;
     }
