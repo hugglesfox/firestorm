@@ -59,3 +59,11 @@ For a more complete example, see [examples/todo.cpp](https://github.com/hugglesf
 
 - Allows you to easily utilise the abstractions provided by [SplashKit](https://www.splashkit.io).
 - Native support for the `json` and `http_request` types.
+
+## Documentation
+
+Documentation can be found [here](https://github.com/hugglesfox/firestorm/wiki).
+
+## Licencing
+
+FireStorm is licenced under the MIT licence.
