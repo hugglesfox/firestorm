@@ -4,6 +4,7 @@
 #include "../include/splashkit/splashkit.h"
 
 #include "cookie.h"
+#include "html.h"
 
 struct Response {
   http_status_code status;
@@ -18,6 +19,7 @@ struct Response {
 Response status(http_status_code status);
 Response plain(string text, http_status_code status);
 Response json_data(json data, http_status_code status);
+Response html(string filename, HtmlVars vars, http_status_code status);
 Response redirect(string location);
 
 #endif

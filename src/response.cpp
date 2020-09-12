@@ -23,6 +23,10 @@ Response json_data(json data, http_status_code status) {
   return Response{status, {}, "application/json", json_to_string(data) + "\n"};
 }
 
+Response html(string filename, HtmlVars vars, http_status_code status) {
+  return Response{status, {}, "text/html", parse_html(filename, vars)};
+}
+
 Response redirect(string location) {
   return Response{HTTP_STATUS_SEE_OTHER, {"Location: " + location}};
 }
