@@ -7,6 +7,7 @@
 #include "cookie.h"
 #include "error.h"
 #include "headers.h"
+#include "html.h"
 #include "middleware.h"
 #include "outcome.h"
 #include "response.h"
