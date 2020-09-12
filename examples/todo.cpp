@@ -175,10 +175,10 @@ public:
 
 int main() {
   FireStorm()
-      .add_response(new ListTodos())
-      .add_response(new GetTodo())
-      .add_response(new CreateTodo())
-      .add_response(new DeleteTodo())
+      .add_route(new ListTodos())
+      .add_route(new GetTodo())
+      .add_route(new CreateTodo())
+      .add_route(new DeleteTodo())
       .ignite(5000);
   return 0;
 }
