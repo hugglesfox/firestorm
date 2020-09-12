@@ -8,7 +8,7 @@ void FireStorm::route(http_request request) {
     try {
       route->_request = request;
       if (route->middlewares() != Outcome::Failure) {
-        route->route().send(request);
+        route->response().send(request);
         return;
       }
     } catch (http_status_code s) {

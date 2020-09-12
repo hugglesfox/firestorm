@@ -74,7 +74,7 @@ public:
   }
 
   // Register middlewares
-  Response route() {
+  Response response() {
     vector<json> json_todos;
     for (Todo todo : *db) {
       json_todos.push_back(todo.to_json());
@@ -100,7 +100,7 @@ public:
         .outcome(*this);
   }
 
-  Response route() {
+  Response response() {
     if (!is_integer(uri_args["id"])) {
       throw HTTP_STATUS_NOT_FOUND;
     }
@@ -132,7 +132,7 @@ public:
         .outcome(*this);
   }
 
-  Response route() {
+  Response response() {
     for (Todo todo : *db) {
       if (todo == body) {
         throw HTTP_STATUS_FORBIDDEN;
@@ -158,7 +158,7 @@ public:
         .outcome(*this);
   }
 
-  Response route() {
+  Response response() {
     if (!is_integer(uri_args["id"])) {
       throw HTTP_STATUS_NO_CONTENT;
     }
@@ -175,10 +175,10 @@ public:
 
 int main() {
   FireStorm()
-      .add_route(new ListTodos())
-      .add_route(new GetTodo())
-      .add_route(new CreateTodo())
-      .add_route(new DeleteTodo())
+      .add_response(new ListTodos())
+      .add_response(new GetTodo())
+      .add_response(new CreateTodo())
+      .add_response(new DeleteTodo())
       .ignite(5000);
   return 0;
 }

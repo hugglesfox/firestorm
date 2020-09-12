@@ -22,7 +22,7 @@ public:
   }
 
   // Create a response to return to the client
-  Response route() {
+  Response response() {
     return plain("Hello " + uri_args["name"] + " aged " + uri_args["age"],
                  HTTP_STATUS_OK);
   }

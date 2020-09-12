@@ -11,7 +11,7 @@ class Route {
 public:
   http_request _request;
   virtual Outcome middlewares() { return Outcome::Success; };
-  virtual Response route() { throw HTTP_STATUS_NOT_FOUND; }
+  virtual Response response() { throw HTTP_STATUS_NOT_FOUND; }
 };
 
 #endif
