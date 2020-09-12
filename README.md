@@ -53,6 +53,7 @@ For a more complete example, see [examples/todo.cpp](https://github.com/hugglesf
 - Simple abstractions to handle redirects as well as serving of plain text, JSON and HTML (WIP).
 - Abstractions for parsing and creating cookies.
 - Request header parsing.
+- Custom error pages.
 
 ### Built on SplashKit
 
