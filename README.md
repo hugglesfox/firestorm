@@ -63,7 +63,7 @@ For a more complete example, see [examples/todo/](https://github.com/hugglesfox/
 ### Built on SplashKit
 
 - Allows you to easily utilise the abstractions provided by [SplashKit](https://www.splashkit.io).
-- Native support for the `json` and `http_request` types.
+- Native support for the `json` and `http_request` types as well as SplashKit resources.
 
 ## Documentation
 
