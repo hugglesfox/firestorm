@@ -1,7 +1,9 @@
 #include "response.h"
+#include "logging.h"
 
 // Send response the to the client
 void Response::send(http_request request) {
+  log(request, *this);
   send_response(request, status, body, content_type, headers);
 }
 

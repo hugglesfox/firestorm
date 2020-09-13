@@ -69,9 +69,18 @@ FireStorm FireStorm::service_unavailable(ErrorFn fn) {
   return *this;
 }
 
+// Set the logging level
+FireStorm FireStorm::log_level(LogLevel level) {
+  _log_level = level;
+  return *this;
+}
+
 // Start the server on a port
 void FireStorm::ignite(unsigned int port) {
   web_server server = start_web_server(port);
+  write_line(
+      "\033[1;33mFireStorm\033[0m web server running on http://localhost:" +
+      std::to_string(port));
   while (true) {
     signal(SIGINT, sigint);
     http_request request = next_web_request(server);

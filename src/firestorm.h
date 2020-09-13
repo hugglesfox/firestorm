@@ -9,12 +9,14 @@
 #include "form.h"
 #include "headers.h"
 #include "html.h"
+#include "logging.h"
 #include "middleware.h"
 #include "outcome.h"
 #include "response.h"
 #include "route.h"
 #include "router.h"
 #include "static_file.h"
+
 
 class FireStorm {
 private:
@@ -24,6 +26,7 @@ private:
 
 public:
   FireStorm add_route(Route *route);
+  FireStorm log_level(LogLevel level);
 
   FireStorm bad_request(ErrorFn fn);
   FireStorm unauthorized(ErrorFn fn);
