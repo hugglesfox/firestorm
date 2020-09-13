@@ -39,6 +39,6 @@ int main() {
   FireStorm()
       .add_route(new Hello())
       .add_route(new HelloForm())
-      .ignite(5000);
+      .ignite();
   return 0;
 }

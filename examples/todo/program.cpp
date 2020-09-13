@@ -16,6 +16,6 @@ int main() {
       .add_route(new CreateTodo(&db))
       .add_route(new DeleteTodo(&db))
       .add_route(new UpdateTodo(&db))
-      .ignite(5000);
+      .ignite();
   return 0;
 }

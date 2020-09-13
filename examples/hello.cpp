@@ -24,7 +24,7 @@ public:
 };
 
 int main() {
-  // Register the Hello route and run the web server on port 5000
-  FireStorm().add_route(new Hello()).ignite(5000);
+  // Register the Hello route and run the web server
+  FireStorm().add_route(new Hello()).ignite();
   return 0;
 }

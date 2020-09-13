@@ -16,6 +16,6 @@ public:
 };
 
 int main() {
-  FireStorm().add_route(new Hello()).ignite(5000);
+  FireStorm().add_route(new Hello()).ignite();
   return 0;
 }
