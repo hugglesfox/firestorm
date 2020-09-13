@@ -14,7 +14,6 @@ public:
 
   CreateTodo(vector<Todo> *db) : db(db) {}
 
-  // Register middlewares
   Outcome middlewares() {
     return MiddleWares<CreateTodo>()
         .add(new Router<CreateTodo>(HTTP_POST_METHOD, {"/todos"}))
@@ -29,7 +28,12 @@ public:
       }
     }
     db->push_back(body);
-    return json_data(body.to_json(), HTTP_STATUS_CREATED);
+
+    // Make the returned JSON look a bit nicer
+    json response = create_json();
+    json_set_object(response, "todo", body.to_json());
+
+    return json_data(response, HTTP_STATUS_CREATED);
   }
 };
 

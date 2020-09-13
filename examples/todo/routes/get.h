@@ -13,7 +13,6 @@ public:
 
   GetTodo(vector<Todo> *db) : db(db) {}
 
-  // Register middlewares
   Outcome middlewares() {
     return MiddleWares<GetTodo>()
         .add(new Router<GetTodo>(HTTP_GET_METHOD, {"/todos/<id>"}))
@@ -28,6 +27,7 @@ public:
     int id = convert_to_integer(uri_args["id"]);
 
     try {
+      // Make the returned JSON look a bit nicer
       json response = create_json();
       json_set_object(response, "todo", db->at(id).to_json());
 

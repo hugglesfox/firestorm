@@ -19,13 +19,13 @@ public:
         .outcome(*this);
   }
 
-  // Register middlewares
   Response response() {
     vector<json> json_todos;
     for (Todo todo : *db) {
       json_todos.push_back(todo.to_json());
     }
 
+    // Make the returned JSON look a bit nicer
     json response = create_json();
     json_set_array(response, "todos", json_todos);
     return json_data(response, HTTP_STATUS_OK);

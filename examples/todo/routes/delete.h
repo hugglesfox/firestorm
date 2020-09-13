@@ -13,7 +13,6 @@ public:
 
   DeleteTodo(vector<Todo> *db) : db(db) {}
 
-  // Register middlewares
   Outcome middlewares() {
     return MiddleWares<DeleteTodo>()
         .add(new Router<DeleteTodo>(HTTP_DELETE_METHOD, {"/todos/<id>"}))
