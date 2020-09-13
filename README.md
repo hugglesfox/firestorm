@@ -37,7 +37,7 @@ int main() {
 }
 ```
 
-For a more complete example, see [examples/todo.cpp](https://github.com/hugglesfox/firestorm/blob/master/examples/todo.cpp)
+For a more complete example, see [examples/todo/](https://github.com/hugglesfox/firestorm/tree/master/examples/todo)
 
 ## Features
 
