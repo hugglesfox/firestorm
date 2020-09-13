@@ -16,6 +16,7 @@
 #include "route.h"
 #include "router.h"
 #include "static_file.h"
+#include "utils.h"
 
 
 class FireStorm {
@@ -39,7 +40,7 @@ public:
   FireStorm not_implemented(ErrorFn fn);
   FireStorm service_unavailable(ErrorFn fn);
 
-  void ignite(unsigned int port = 5000);
+  void ignite(unsigned int port = 5000, string host = "localhost");
 };
 
 #endif

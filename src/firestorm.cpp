@@ -76,15 +76,31 @@ FireStorm FireStorm::log_level(LogLevel level) {
 }
 
 // Start the server on a port
-void FireStorm::ignite(unsigned int port) {
+void FireStorm::ignite(unsigned int port, string host) {
   web_server server = start_web_server(port);
+
+  if (host == "127.0.0.1") {
+    host = "localhost";
+  }
+
+  // Account for ports other then 80
+  if (port != 80) {
+    host += ":" + std::to_string(port);
+  }
+
   write_line(
-      "\033[1;33mFireStorm\033[0m web server running on http://localhost:" +
-      std::to_string(port));
+    "\033[1;33mFireStorm\033[0m web server running on http://" + host);
+
   while (true) {
     signal(SIGINT, sigint);
     http_request request = next_web_request(server);
 
-    route(request);
+    string host_header = headers(request)["Host"];
+
+    // Only route the request if the host is correct
+    if (host == "0.0.0.0" || host_header == host ||
+        (host_header == "127.0.0.1" && host == "localhost")) {
+      route(request);
+    }
   }
 }
