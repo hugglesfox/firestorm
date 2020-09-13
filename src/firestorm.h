@@ -36,7 +36,7 @@ public:
   FireStorm not_implemented(ErrorFn fn);
   FireStorm service_unavailable(ErrorFn fn);
 
-  void ignite(unsigned int port);
+  void ignite(unsigned int port=5000);
 };
 
 #endif
