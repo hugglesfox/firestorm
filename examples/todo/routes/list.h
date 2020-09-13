@@ -11,10 +11,11 @@ public:
   UriArgs uri_args;
   vector<Todo> *db;
 
+  ListTodos(vector<Todo> *db) : db(db) {}
+
   Outcome middlewares() {
     return MiddleWares<ListTodos>()
         .add(new Router<ListTodos>(HTTP_GET_METHOD, {"/todos"}))
-        .add(new TodoDb<ListTodos>())
         .outcome(*this);
   }
 

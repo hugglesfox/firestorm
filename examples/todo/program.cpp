@@ -5,15 +5,15 @@
 #include "routes/list.h"
 #include <stdexcept>
 
-// The Todo "database"
-vector<Todo> todos;
-
 int main() {
+  // The Todo "database"
+  vector<Todo> db;
+
   FireStorm()
-      .add_route(new ListTodos())
-      .add_route(new GetTodo())
-      .add_route(new CreateTodo())
-      .add_route(new DeleteTodo())
+      .add_route(new ListTodos(&db))
+      .add_route(new GetTodo(&db))
+      .add_route(new CreateTodo(&db))
+      .add_route(new DeleteTodo(&db))
       .ignite(5000);
   return 0;
 }

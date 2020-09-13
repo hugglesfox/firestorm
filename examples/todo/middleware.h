@@ -4,15 +4,6 @@
 #include "../../src/firestorm.h"
 #include "models.h"
 
-// A middleware to create a connection to the database
-template <typename R> class TodoDb : public MiddleWare<R> {
-public:
-  Outcome outcome(R &route, http_request _) {
-    route.db = database_named("todo");
-    return Outcome::Success;
-  }
-};
-
 // A middleware to parse Todo objects from json request bodies
 template <typename R> class ParseTodo : public MiddleWare<R> {
 public:
