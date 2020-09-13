@@ -18,7 +18,7 @@
 
 class FireStorm {
 private:
-  Error error;
+  ErrorPages error;
   vector<Route *> routes;
   void route(http_request request);
 
@@ -36,7 +36,7 @@ public:
   FireStorm not_implemented(ErrorFn fn);
   FireStorm service_unavailable(ErrorFn fn);
 
-  void ignite(unsigned int port=5000);
+  void ignite(unsigned int port = 5000);
 };
 
 #endif

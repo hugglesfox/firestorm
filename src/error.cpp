@@ -1,6 +1,6 @@
 #include "error.h"
 
-ErrorFn Error::from(http_status_code status) {
+ErrorFn ErrorPages::from(http_status_code status) {
   switch (status) {
   case HTTP_STATUS_BAD_REQUEST:
     return bad_request;

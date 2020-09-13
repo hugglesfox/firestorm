@@ -19,7 +19,7 @@ Response internal_server_error_fn();
 Response not_implemented_fn();
 Response service_unavailable_fn();
 
-struct Error {
+struct ErrorPages {
   // 4xx
   ErrorFn bad_request = bad_request_fn;
   ErrorFn unauthorized = unauthorized_fn;
