@@ -12,6 +12,7 @@ Response unauthorized_fn();
 Response forbidden_fn();
 Response not_found_fn();
 Response method_not_allowed_fn();
+Response conflict_fn();
 
 // 5xx
 Response internal_server_error_fn();
@@ -25,6 +26,7 @@ struct Error {
   ErrorFn forbidden = forbidden_fn;
   ErrorFn not_found = not_found_fn;
   ErrorFn method_not_allowed = method_not_allowed_fn;
+  ErrorFn conflict = conflict_fn;
 
   // 5xx
   ErrorFn internal_server_error = internal_server_error_fn;

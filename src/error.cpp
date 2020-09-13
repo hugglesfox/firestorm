@@ -12,6 +12,8 @@ ErrorFn Error::from(http_status_code status) {
     return not_found;
   case HTTP_STATUS_METHOD_NOT_ALLOWED:
     return method_not_allowed;
+  case HTTP_STATUS_CONFLICT:
+    return conflict;
 
   case HTTP_STATUS_INTERNAL_SERVER_ERROR:
     return internal_server_error;
@@ -42,6 +44,8 @@ Response not_found_fn() { return plain("Not Found", HTTP_STATUS_NOT_FOUND); }
 Response method_not_allowed_fn() {
   return plain("Method Not Allowed", HTTP_STATUS_METHOD_NOT_ALLOWED);
 }
+
+Response conflict_fn() { return plain("Conflict", HTTP_STATUS_CONFLICT); }
 
 Response internal_server_error_fn() {
   return plain("Internal Server Errror", HTTP_STATUS_INTERNAL_SERVER_ERROR);

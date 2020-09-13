@@ -29,6 +29,7 @@ public:
   FireStorm forbidden(ErrorFn fn);
   FireStorm not_found(ErrorFn fn);
   FireStorm method_not_allowed(ErrorFn fn);
+  FireStorm conflict(ErrorFn fn);
 
   FireStorm internal_server_error(ErrorFn fn);
   FireStorm not_implemented(ErrorFn fn);
