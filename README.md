@@ -1,4 +1,7 @@
-# FireStorm
+
+<p align="center">
+  <img height="600" src="https://github.com/hugglesfox/firestorm/blob/master/firestorm.png">
+</p>
 
 FireStorm aims to be a simple yet flexible web frame work which is built on top of [SplashKit’s](https://www.splashkit.io) networking features. FireStorm provides abstractions for routing, middlewares, cookies, redirects and more.
 
