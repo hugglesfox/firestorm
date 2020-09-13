@@ -6,6 +6,7 @@
 
 #include "cookie.h"
 #include "error.h"
+#include "form.h"
 #include "headers.h"
 #include "html.h"
 #include "middleware.h"
