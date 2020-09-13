@@ -28,7 +28,10 @@ public:
     int id = convert_to_integer(uri_args["id"]);
 
     try {
-      return json_data(db->at(id).to_json(), HTTP_STATUS_OK);
+      json response = create_json();
+      json_set_object(response, "todo", db->at(id).to_json());
+
+      return json_data(response, HTTP_STATUS_OK);
     } catch (const std::out_of_range &) {
       throw HTTP_STATUS_NOT_FOUND;
     }
