@@ -46,13 +46,13 @@ For a more complete example, see [examples/todo/](https://github.com/hugglesfox/
 - All interactions with raw http requests are managed with middlewares.
 - Middlewares are pluggable therefore are enabled an a route to route basis.
   - If a middleware fails then the request isn't handled by that route.
-- Various built in middlewares are available for routing, form parsing (WIP) and CSRF token management(WIP).
+- Various built in middlewares are available for routing, form parsing (WIP) and CSRF token management (WIP).
   - The built in router middleware allows for variable path and argument handling.
   - Yes that does mean you do not have to use the built in router if you wish.
 
 ### Simple request and response handling
 
-- Simple abstractions to handle redirects as well as serving of plain text, JSON and HTML (WIP).
+- Simple abstractions to handle redirects as well as serving of plain text, JSON and HTML.
 - Abstractions for parsing and creating cookies.
 - Request header parsing.
 - Custom error pages.
