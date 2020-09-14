@@ -11,7 +11,7 @@ public:
   }
 
   Response response() {
-    return html("hello.html", {{"name", uri_args["name"]}}, HTTP_STATUS_OK);
+    return html("hello.html", {{"name", uri_args["name"]}});
   }
 };
 

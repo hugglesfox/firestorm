@@ -28,7 +28,7 @@ public:
     // Make the returned JSON look a bit nicer
     json response = create_json();
     json_set_array(response, "todos", json_todos);
-    return json_data(response, HTTP_STATUS_OK);
+    return json_data(response);
   }
 };
 

@@ -17,10 +17,12 @@ struct Response {
 };
 
 Response status(http_status_code status);
-Response plain(string text, http_status_code status);
-Response json_data(json data, http_status_code status);
-Response html(string filename, HtmlVars vars, http_status_code status);
-Response file(string filename, string content_type);
+Response plain(string text, http_status_code status = HTTP_STATUS_OK);
+Response json_data(json data, http_status_code status = HTTP_STATUS_OK);
+Response html(string filename, HtmlVars vars,
+              http_status_code status = HTTP_STATUS_OK);
+Response file(string filename, string content_type,
+              http_status_code status = HTTP_STATUS_OK);
 Response redirect(string location);
 
 #endif

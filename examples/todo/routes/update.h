@@ -50,7 +50,7 @@ public:
     json response = create_json();
     json_set_object(response, "todo", body.to_json());
 
-    return json_data(response, HTTP_STATUS_OK);
+    return json_data(response);
   }
 };
 

@@ -31,7 +31,7 @@ public:
   }
 
   Response response() {
-    return html("hello.html", {{"name", name}}, HTTP_STATUS_OK);
+    return html("hello.html", {{"name", name}});
   }
 };
 

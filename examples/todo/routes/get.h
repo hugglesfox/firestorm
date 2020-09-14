@@ -31,7 +31,7 @@ public:
       json response = create_json();
       json_set_object(response, "todo", db->at(id).to_json());
 
-      return json_data(response, HTTP_STATUS_OK);
+      return json_data(response);
     } catch (const std::out_of_range &) {
       throw HTTP_STATUS_NOT_FOUND;
     }
