@@ -30,7 +30,7 @@ public:
       db->erase(db->begin() + id);
     } catch (...) {
     }
-    throw HTTP_STATUS_NO_CONTENT;
+    return status(HTTP_STATUS_NO_CONTENT);
   }
 };
 
