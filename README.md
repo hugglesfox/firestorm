@@ -28,8 +28,7 @@ public:
 
   // Create a response to return to the client
   Response response() {
-    return plain("Hello " + uri_args["name"] + " aged " + uri_args["age"],
-                 HTTP_STATUS_OK);
+    return plain("Hello " + uri_args["name"] + " aged " + uri_args["age"]);
   }
 };
 
