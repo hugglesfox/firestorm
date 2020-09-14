@@ -12,7 +12,8 @@ public:
     return MiddleWares<Hello>()
         // Add the built in Router middleware to process get requests on the
         // paths /hello and /hello/<name>?<age>
-        .add(new Router<Hello>(HTTP_GET_METHOD, {"/hello/<name>?<age>"}))
+        .add(new Router<Hello>(HTTP_GET_METHOD,
+                               {"/hello", "/hello/<name>?<age>"}))
         .outcome(*this);
   }
 
