@@ -38,7 +38,7 @@ UriArgs path_vars(http_request request, string uri) {
   vector<string> request_stubs = request_uri_stubs(request);
   vector<string> path_stubs = split_path(uri);
 
-  for (int i = 0; i < path_stubs.size(); i++) {
+  for (size_t i = 0; i < path_stubs.size(); i++) {
     string id = parse_identifier(path_stubs[i]);
 
     if (id.length() > 0) {
@@ -89,7 +89,7 @@ bool uri_matches(http_request request, string uri) {
     return false;
   }
 
-  for (int i = 0; i < request_stubs.size(); i++) {
+  for (size_t i = 0; i < request_stubs.size(); i++) {
     // Handle a variable path segment
     string id = parse_identifier(route_stubs[i]);
     if (!(id.size() > 0 || request_stubs[i] == route_stubs[i])) {
