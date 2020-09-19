@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_HTML
 #define FIRESTORM_HTML
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 #include <unordered_map>
 
 #include "utils.h"

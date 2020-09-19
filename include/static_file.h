@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_STATIC_FILE
 #define FIRESTORM_STATIC_FILE
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 
 #include "middleware.h"
 #include "route.h"

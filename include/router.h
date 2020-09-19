@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_ROUTER
 #define FIRESTORM_ROUTER
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 #include <unordered_map>
 
 #include "middleware.h"

@@ -1,7 +1,7 @@
 #ifndef TOOD_ROUTE_DELETE
 #define TODO_ROUTE_DELETE
 
-#include "../../../src/firestorm.h"
+#include "firestorm.h"
 #include "../middleware.h"
 #include "../models.h"
 

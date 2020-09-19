@@ -1,7 +1,7 @@
 #ifndef TODO_MODELS
 #define TODO_MODELS
 
-#include "../../src/firestorm.h"
+#include "firestorm.h"
 
 class Todo {
 public:

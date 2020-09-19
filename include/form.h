@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_FORM
 #define FIRESTORM_FORM
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 #include <unordered_map>
 
 #include "headers.h"

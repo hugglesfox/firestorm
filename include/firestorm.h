@@ -1,7 +1,7 @@
 #ifndef FIRESTORM
 #define FIRESTORM
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 #include <csignal>
 
 #include "cookie.h"
@@ -16,8 +16,6 @@
 #include "route.h"
 #include "router.h"
 #include "static_file.h"
-#include "utils.h"
-
 
 class FireStorm {
 private:
