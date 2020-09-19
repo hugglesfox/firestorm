@@ -15,5 +15,8 @@ src = [
   'utils.cpp'
 ]
 
-
-firestorm = library('FireStorm', src, dependencies : deps, include_directories : inc)
+firestorm = library('firestorm',
+                    src,
+                    dependencies : deps,
+                    include_directories : inc,
+                    install : true)
