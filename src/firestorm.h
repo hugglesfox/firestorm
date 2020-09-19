@@ -23,7 +23,7 @@ class FireStorm {
 private:
   ErrorPages error;
   vector<Route *> routes;
-  void route(http_request request);
+  Response route(http_request request);
 
 public:
   FireStorm add_route(Route *route);

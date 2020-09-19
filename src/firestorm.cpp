@@ -3,23 +3,20 @@
 void sigint(int signal) { exit(0); }
 
 // Route a request
-void FireStorm::route(http_request request) {
+Response FireStorm::route(http_request request) {
   for (Route *route : routes) {
     try {
       route->_request = request;
       if (route->middlewares() != Outcome::Failure) {
-        route->response().send(request);
-        return;
+        return route->response();
       }
     } catch (http_status_code s) {
-      error.from(s)().send(request);
-      return;
+      return error.from(s)();
     } catch (...) {
-      error.internal_server_error().send(request);
-      return;
+      return error.internal_server_error();
     }
   }
-  error.not_found().send(request);
+  return error.not_found();
 }
 
 // Register a route
@@ -100,7 +97,7 @@ void FireStorm::ignite(unsigned int port, string host) {
     // Only route the request if the host is correct
     if (host == "0.0.0.0" || host_header == host ||
         (host_header == "127.0.0.1" && host == "localhost")) {
-      route(request);
+      route(request).send(request);
     }
   }
 }
