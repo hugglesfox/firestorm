@@ -14,6 +14,24 @@ struct Response {
 
   Response add_cookie(Cookie cookie);
   void send(http_request request);
+
+  bool operator==(Response other) {
+    if (headers.size() != other.headers.size()) {
+      return false;
+    }
+
+    for (int i = 0; i < headers.size(); i++) {
+      if (headers[i] != other.headers[i]) {
+        return false;
+      }
+    }
+
+    return status == other.status && content_type == other.content_type && body == other.body;
+   }
+
+   bool operator!=(Response other) {
+     return !(*this == other);
+   }
 };
 
 Response status(http_status_code status);
