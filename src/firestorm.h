@@ -1,7 +1,7 @@
 #ifndef FIRESTORM
 #define FIRESTORM
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 #include <csignal>
 
 #include "cookie.h"

@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_LOGGING
 #define FIRESTORM_LOGGING
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 #include <chrono>
 #include <ctime>
 

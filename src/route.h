@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_ROUTE
 #define FIRESTORM_ROUTE
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 #include <memory>
 
 #include "response.h"

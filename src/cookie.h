@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_COOKIE
 #define FIRESTORM_COOKIE
 
-#include "../include/splashkit/splashkit.h"
+#include "splashkit.h"
 
 enum SameSiteOption {
   Strict,
