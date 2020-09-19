@@ -1,4 +1,4 @@
-#include "../../src/firestorm.h"
+#include "firestorm.h"
 
 string name;
 

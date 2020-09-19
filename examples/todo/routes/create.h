@@ -1,7 +1,7 @@
 #ifndef TOOD_ROUTE_CREATE
 #define TODO_ROUTE_CREATE
 
-#include "../../../src/firestorm.h"
+#include "firestorm.h"
 #include "../middleware.h"
 #include "../models.h"
 

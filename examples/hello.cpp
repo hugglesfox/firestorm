@@ -1,4 +1,4 @@
-#include "../src/firestorm.h"
+#include "firestorm.h"
 
 // Create the route Hello
 class Hello : public Route {

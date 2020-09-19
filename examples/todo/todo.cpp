@@ -1,4 +1,4 @@
-#include "../../src/firestorm.h"
+#include "firestorm.h"
 #include "models.h"
 #include "routes/create.h"
 #include "routes/delete.h"
