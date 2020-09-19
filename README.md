@@ -77,7 +77,7 @@ Set up the Meson environment.
 $ meson build
 ```
 
-#### Enabling Examples
+### Enabling Examples
 
 By default the examples won't be compiled. Set the `build_examples` build option to `true` to compile examples.
 
