@@ -1,8 +1,3 @@
-cc = meson.get_compiler('cpp')
-
-lib_splashkitcpp = cc.find_library('SplashKitCPP', dirs : ['~/.splashkit/g++/lib/linux'])
-lib_splashkit = cc.find_library('SplashKit', dirs : ['~/.splashkit/source'])
-
 src = [
   'cookie.cpp',
   'error.cpp',
@@ -20,6 +15,5 @@ src = [
   'utils.cpp'
 ]
 
-deps = [lib_splashkit, lib_splashkitcpp]
 
 firestorm = library('FireStorm', src, dependencies : deps, include_directories : inc)
