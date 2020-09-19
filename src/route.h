@@ -10,6 +10,7 @@
 class Route {
 public:
   http_request _request;
+  virtual ~Route() {}
   virtual Outcome middlewares() { return Outcome::Success; };
   virtual Response response() { throw HTTP_STATUS_INTERNAL_SERVER_ERROR; }
 };
