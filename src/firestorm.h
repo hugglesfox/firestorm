@@ -23,6 +23,8 @@ class FireStorm {
 private:
   ErrorPages error;
   vector<Route *> routes;
+
+protected:
   Response route(http_request request);
 
 public:
