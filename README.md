@@ -65,6 +65,35 @@ For a more complete example, see [examples/todo/](https://github.com/hugglesfox/
 - Allows you to easily utilise the abstractions provided by [SplashKit](https://www.splashkit.io).
 - Native support for the `json` and `http_request` types as well as SplashKit resources.
 
+## Building
+
+FireStorm uses the Meson build system.
+
+### Initial Setup
+
+Set up the Meson environment.
+
+```
+$ meson build
+```
+
+#### Enabling Examples
+
+By default the examples won't be compiled. Set the `build_examples` build option to `true` to compile examples.
+
+```
+$ meson configure -Dbuild_examples=true
+```
+
+### Compiling
+
+Compile using a Meson backend (here we're using Ninja).
+
+```
+$ cd build
+$ ninja
+```
+
 ## Documentation
 
 Documentation can be found [here](https://github.com/hugglesfox/firestorm/wiki).
