@@ -1,7 +1,7 @@
 #ifndef TOOD_ROUTE_GET
 #define TODO_ROUTE_GET
 
-#include "../../../src/firestorm.h"
+#include "firestorm.h"
 #include "../middleware.h"
 #include "../models.h"
 

@@ -1,7 +1,7 @@
 // A Fizz Buzz example which makes use of the fact that routes are persistant
 // between requests.
 
-#include "../src/firestorm.h"
+#include "firestorm.h"
 
 class FizzBuzz : public Route {
 private:

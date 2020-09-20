@@ -1,7 +1,7 @@
 #ifndef TODO_MIDDLEWARE
 #define TODO_MIDDLEWARE
 
-#include "../../src/firestorm.h"
+#include "firestorm.h"
 #include "models.h"
 
 // A middleware to parse Todo objects from json request bodies

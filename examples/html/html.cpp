@@ -1,4 +1,4 @@
-#include "../../src/firestorm.h"
+#include "firestorm.h"
 
 class Hello : public Route {
 public:
@@ -11,7 +11,7 @@ public:
   }
 
   Response response() {
-    return html("hello.html", {{"name", uri_args["name"]}});
+    return html("index.html", {{"name", uri_args["name"]}});
   }
 };
 
