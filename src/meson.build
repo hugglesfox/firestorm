@@ -19,4 +19,5 @@ firestorm = library('firestorm',
                     src,
                     dependencies : deps,
                     include_directories : inc,
-                    install : true)
+                    install : true,
+                    install_dir : sk_lib_dir)

@@ -14,4 +14,5 @@ headers = [
   'static_file.h'
 ]
 
-install_headers(headers)
+install_headers(headers, install_dir : sk_gcc_include_dir)
+install_headers(headers, install_dir : sk_clang_include_dir)

@@ -69,12 +69,14 @@ For a more complete example, see [examples/todo/](https://github.com/hugglesfox/
 
 FireStorm uses the Meson build system.
 
+**NOTE:** Building and installing FireStorm has only been tested on Linux and will likely not work for Mac or Windows. Pull requests to fix this are welcome.
+
 ### Initial Setup
 
 Set up the Meson environment.
 
 ```
-$ meson build
+$ meson -Dskm_dir=$HOME/.splashkit build
 ```
 
 ### Enabling Examples
@@ -93,6 +95,24 @@ Compile using a Meson backend (here we're using Ninja).
 $ cd build
 $ ninja
 ```
+
+### Installing
+
+FireStorm can be installed to the skm directory.
+
+```
+$ meson install
+```
+
+### Compiling a FireStorm project
+
+Projects using FireStorm can be compiled using `skm` by specifying the `LIB` environment variable.
+
+```
+LIB='-lfirestorm' skm clang++ program.cpp
+```
+
+**NOTE:** Support for the `LIB` environment variable has not yet been merged into skm. See [splashkit/skm#26](https://github.com/splashkit/skm/pull/26) for more information.
 
 ## Documentation
 
