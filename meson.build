@@ -12,4 +12,7 @@ deps = [lib_splashkit, lib_splashkitcpp]
 
 subdir('include')
 subdir('src')
-subdir('examples')
+
+if get_option('build_examples')
+  subdir('examples')
+endif
