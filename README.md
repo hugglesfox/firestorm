@@ -79,7 +79,7 @@ Set up the Meson environment.
 $ meson -Dskm_dir=$HOME/.splashkit build
 ```
 
-### Enabling Examples
+### Building Examples
 
 By default the examples won't be compiled. Set the `build_examples` build option to `true` to compile examples.
 
