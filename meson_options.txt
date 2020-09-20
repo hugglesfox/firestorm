@@ -1,2 +1,2 @@
-option('build_examples', type : 'boolean', value : false)
 option('skm_dir', type : 'string', value : '~/.splashkit')
+option('build_examples', type : 'boolean', value : false)
