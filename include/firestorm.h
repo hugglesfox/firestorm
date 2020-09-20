@@ -22,9 +22,6 @@ private:
   ErrorPages error;
   vector<Route *> routes;
 
-protected:
-  Response route(http_request request);
-
 public:
   FireStorm add_route(Route *route);
   FireStorm log_level(LogLevel level);
@@ -40,6 +37,7 @@ public:
   FireStorm not_implemented(ErrorFn fn);
   FireStorm service_unavailable(ErrorFn fn);
 
+  Response route(http_request request);
   void ignite(unsigned int port = 5000, string host = "localhost");
 };
 
