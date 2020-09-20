@@ -20,7 +20,7 @@ struct Response {
       return false;
     }
 
-    for (int i = 0; i < headers.size(); i++) {
+    for (size_t i = 0; i < headers.size(); i++) {
       if (headers[i] != other.headers[i]) {
         return false;
       }
