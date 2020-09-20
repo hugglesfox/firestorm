@@ -10,8 +10,13 @@ cc = meson.get_compiler('cpp')
 lib_splashkitcpp = cc.find_library('SplashKitCPP', dirs : join_paths(skm_dir, 'g++/lib/linux'))
 lib_splashkit = cc.find_library('SplashKit', dirs : sk_lib_dir)
 
-inc = [include_directories('include'), include_directories(sk_gcc_include_dir)]
+include = [
+  'include',
+  sk_gcc_include_dir
+]
+
 deps = [lib_splashkit, lib_splashkitcpp]
+inc = include_directories(include)
 
 subdir('include')
 subdir('src')
