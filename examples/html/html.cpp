@@ -11,7 +11,7 @@ public:
   }
 
   Response response() {
-    return html("hello.html", {{"name", uri_args["name"]}});
+    return html("index.html", {{"name", uri_args["name"]}});
   }
 };
 
