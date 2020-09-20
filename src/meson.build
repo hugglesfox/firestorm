@@ -2,6 +2,7 @@ src = [
   'cookie.cpp',
   'error.cpp',
   'firestorm.cpp',
+  'firestorm_mock.cpp',
   'form.cpp',
   'headers.cpp',
   'html.cpp',

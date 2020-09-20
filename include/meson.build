@@ -2,6 +2,7 @@ headers = [
   'cookie.h',
   'error.h',
   'firestorm.h',
+  'firestorm_mock.h',
   'form.h',
   'headers.h',
   'html.h',
