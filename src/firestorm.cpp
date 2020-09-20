@@ -96,7 +96,8 @@ void FireStorm::ignite(unsigned int port, string host) {
 
     // Only route the request if the host is correct
     if (host == "0.0.0.0" || host_header == host ||
-        (host_header == "127.0.0.1" && host == "localhost")) {
+        (split_at_first(host_header, ':').front() == "127.0.0.1"
+         && host == "localhost")) {
       route(request).send(request);
     }
   }
