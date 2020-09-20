@@ -67,7 +67,7 @@ For a more complete example, see [examples/todo/](https://github.com/hugglesfox/
 
 ## Building
 
-FireStorm uses the Meson build system.
+FireStorm uses the Meson build system. These instructions assume that you already have SplashKit installed and skm working.
 
 **NOTE:** Building and installing FireStorm has only been tested on Linux and will likely not work for Mac or Windows. Pull requests to fix this are welcome.
 
