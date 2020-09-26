@@ -22,7 +22,7 @@ TEST_CASE("test split args") {
   REQUIRE(split_args("/hello/world") == vector<string> {""});
   REQUIRE(split_args("/") == vector<string> {""});
   REQUIRE(split_args("/hello?arg&another_arg") == vector<string> {"arg", "another_arg"});
-  REQUIRE(split_args("/?&") == vector<string> {""});
+  REQUIRE(split_args("/?&") == vector<string> {"", ""});
 }
 
 TEST_CASE("test path vars parsing") {
