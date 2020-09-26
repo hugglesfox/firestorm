@@ -1,0 +1,15 @@
+language: cpp
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install meson
+  - bash <(curl -s https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh)
+  - skm linux install
+
+install:
+  - meson build
+  - cd build
+  - meson configure -Dbuild_examples=true
+
+script:
+  - meson test
