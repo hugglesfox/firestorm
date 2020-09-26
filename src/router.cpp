@@ -14,14 +14,24 @@ string parse_identifier(string id) {
 
 // Splits a string at / ignoring arguments
 vector<string> split_path(string uri) {
-  string path = split_at(uri, '?').front();
-  return split_at(path, '/');
+  string path = split_at_first(uri, '?').front();
+  vector<string> result = split_at(path, '/');
+
+  // assume that all paths start with a /
+  result.erase(result.begin());
+  return result;
 }
 
 // Split a string at & ignoring path
 vector<string> split_args(string uri) {
   // The HTTP spec states that only the first ? should be considered
   string args = split_at_first(uri, '?').back();
+
+  // Doesn't contain any args
+  if (args == uri) {
+    return {""};
+  }
+
   return split_at(args, '&');
 }
 
