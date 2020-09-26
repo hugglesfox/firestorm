@@ -26,16 +26,16 @@ public:
   FireStorm add_route(Route *route);
   FireStorm log_level(LogLevel level);
 
-  FireStorm bad_request(ErrorFn fn);
-  FireStorm unauthorized(ErrorFn fn);
-  FireStorm forbidden(ErrorFn fn);
-  FireStorm not_found(ErrorFn fn);
-  FireStorm method_not_allowed(ErrorFn fn);
-  FireStorm conflict(ErrorFn fn);
+  FireStorm bad_request(const ErrorFn &fn);
+  FireStorm unauthorized(const ErrorFn &fn);
+  FireStorm forbidden(const ErrorFn &fn);
+  FireStorm not_found(const ErrorFn &fn);
+  FireStorm method_not_allowed(const ErrorFn &fn);
+  FireStorm conflict(const ErrorFn &fn);
 
-  FireStorm internal_server_error(ErrorFn fn);
-  FireStorm not_implemented(ErrorFn fn);
-  FireStorm service_unavailable(ErrorFn fn);
+  FireStorm internal_server_error(const ErrorFn &fn);
+  FireStorm not_implemented(const ErrorFn &fn);
+  FireStorm service_unavailable(const ErrorFn &fn);
 
   Response route(http_request request);
   void ignite(unsigned int port = 5000, string host = "localhost");

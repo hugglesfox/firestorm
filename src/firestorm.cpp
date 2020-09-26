@@ -26,42 +26,42 @@ FireStorm FireStorm::add_route(Route *route) {
 }
 
 // Error register error handler
-FireStorm FireStorm::bad_request(ErrorFn fn) {
+FireStorm FireStorm::bad_request(const ErrorFn &fn) {
   error.bad_request = fn;
   return *this;
 }
 
-FireStorm FireStorm::unauthorized(ErrorFn fn) {
+FireStorm FireStorm::unauthorized(const ErrorFn &fn) {
   error.unauthorized = fn;
   return *this;
 }
 
-FireStorm FireStorm::forbidden(ErrorFn fn) {
+FireStorm FireStorm::forbidden(const ErrorFn &fn) {
   error.forbidden = fn;
   return *this;
 }
 
-FireStorm FireStorm::not_found(ErrorFn fn) {
+FireStorm FireStorm::not_found(const ErrorFn &fn) {
   error.not_found = fn;
   return *this;
 }
 
-FireStorm FireStorm::method_not_allowed(ErrorFn fn) {
+FireStorm FireStorm::method_not_allowed(const ErrorFn &fn) {
   error.method_not_allowed = fn;
   return *this;
 }
 
-FireStorm FireStorm::internal_server_error(ErrorFn fn) {
+FireStorm FireStorm::internal_server_error(const ErrorFn &fn) {
   error.internal_server_error = fn;
   return *this;
 }
 
-FireStorm FireStorm::not_implemented(ErrorFn fn) {
+FireStorm FireStorm::not_implemented(const ErrorFn &fn) {
   error.not_implemented = fn;
   return *this;
 }
 
-FireStorm FireStorm::service_unavailable(ErrorFn fn) {
+FireStorm FireStorm::service_unavailable(const ErrorFn &fn) {
   error.service_unavailable = fn;
   return *this;
 }
