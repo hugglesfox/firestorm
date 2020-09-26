@@ -22,17 +22,6 @@ vector<string> split_at(string s, char c) {
 
 // Split at the first occurance of c
 vector<string> split_at_first(string s, char c) {
-  vector<string> parts = split_at(s, c);
-
-  string first = parts.front();
-  parts.erase(parts.begin());
-
-  string result;
-  for (string part : parts) {
-    result += c + part;
-  }
-
-  result.erase(0, 1);
-
-  return {first, result};
+  size_t split = s.find(c);
+  return {s.substr(0, split), s.substr(split + 1, s.back())};
 }
