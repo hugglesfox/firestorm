@@ -1,15 +1,21 @@
+os: linux
+dist: focal
+
 language: cpp
+
+cache: ccache
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get -y install meson
+  - sudo apt-get -y install meson gcovr
   - bash <(curl -s https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh)
-  - skm linux install
-
-install:
-  - meson build
-  - cd build
-  - meson configure -Dbuild_examples=true
+  - /home/travis/.splashkit/skm linux install
 
 script:
-  - meson test
+  - meson -Dskm_dir=/home/travis/.splashkit -Dbuild_examples=true -Db_coverage=true build
+  - ninja -C build
+  - meson test -C build
+
+after_success:
+  - ninja -C build coverage-xml
+  - bash <(curl -s https://codecov.io/bash)
