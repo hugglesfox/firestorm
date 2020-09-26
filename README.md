@@ -1,7 +1,8 @@
-
 <p align="center">
   <img height="600" src="https://github.com/hugglesfox/firestorm/blob/master/firestorm.png" alt="FireStorm" title="FireStorm">
 </p>
+
+[![Build Status](https://travis-ci.com/hugglesfox/firestorm.svg?branch=master)](https://travis-ci.com/hugglesfox/firestorm) [![codecov](https://codecov.io/gh/hugglesfox/firestorm/branch/master/graph/badge.svg)](https://codecov.io/gh/hugglesfox/firestorm)
 
 FireStorm aims to be a simple yet flexible web frame work which is built on top of [SplashKit’s](https://www.splashkit.io) networking features. FireStorm provides abstractions for routing, middlewares, cookies, redirects and more.
 
