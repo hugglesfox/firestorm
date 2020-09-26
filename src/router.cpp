@@ -25,7 +25,6 @@ vector<string> split_args(string uri) {
   return split_at(args, '&');
 }
 
-
 // Returns an unordered map of the variable path identifiers and the correlating
 // values from a request.
 //
