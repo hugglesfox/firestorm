@@ -14,7 +14,7 @@ string parse_identifier(string id) {
 
 // Splits a string at / ignoring arguments
 vector<string> split_path(string uri) {
-  string path = split_at_first(uri, '?').front();
+  string path = split_at(uri, '?').front();
   vector<string> result = split_at(path, '/');
 
   // assume that all paths start with a /
@@ -44,7 +44,7 @@ vector<string> split_args(string uri) {
 UriArgs path_vars(http_request request, string uri) {
   UriArgs result;
 
-  vector<string> request_stubs = request_uri_stubs(request);
+  vector<string> request_stubs = split_path(request_uri(request));
   vector<string> path_stubs = split_path(uri);
 
   for (size_t i = 0; i < path_stubs.size(); i++) {

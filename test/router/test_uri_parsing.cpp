@@ -29,6 +29,7 @@ TEST_CASE("test path vars parsing") {
   http_request request = MockRequest().uri("/animal/dog").construct();
 
   REQUIRE(path_vars(request, "/animal/<animal>?<color>")["animal"] == "dog");
+  REQUIRE(path_vars(request, "/animal/<animal>/?<color>")["animal"] == "dog");
   REQUIRE(path_vars(request, "/<animal>/<animal>")["animal"] == "dog");
   REQUIRE(path_vars(request, "/<segment>/<animal>").size() == 2);
   REQUIRE(path_vars(request, "/").size() == 0);
@@ -41,6 +42,7 @@ TEST_CASE("test path args parsing") {
                             .construct();
 
   REQUIRE(arg_vars(request, "/<animal>")["animal"] == "");
+  REQUIRE(arg_vars(request, "/animals/?<animal>&<color>")["animal"] == "dog?");
   REQUIRE(arg_vars(request, "/animals?<animal>&<color>")["animal"] == "dog?");
   REQUIRE(arg_vars(request, "/animals?<animal>&<color>")["color"] == "black");
   REQUIRE(arg_vars(request, "/animals?<animal>")["animal"] == "dog?");
