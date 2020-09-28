@@ -18,8 +18,9 @@ before_install:
 
 script:
   - meson -Dskm_dir=/home/travis/.splashkit -Dbuild_examples=true -Db_coverage=true build
-  - ninja -C build
-  - meson test -C build
+  - cd build
+  - ninja
+  - meson test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
