@@ -1,5 +1,5 @@
 src = [
-  'test_file_type.cpp',
+  '../test.cpp',
   'test_static_file.cpp'
 ]
 
