@@ -19,6 +19,12 @@ vector<string> split_path(string uri) {
 
   // assume that all paths start with a /
   result.erase(result.begin());
+
+  // Account for if there is a trailing slash
+  if (result.back().size() == 0) {
+    result.pop_back();
+  }
+
   return result;
 }
 
@@ -91,7 +97,7 @@ UriArgs uri_vars(http_request request, string uri) {
 // Returns a boolean of whether a request matches a route.
 bool uri_matches(http_request request, string uri) {
   // Handle variable paths
-  vector<string> request_stubs = request_uri_stubs(request);
+  vector<string> request_stubs = split_path(request_uri(request));
   vector<string> route_stubs = split_path(uri);
 
   if (request_stubs.size() != route_stubs.size()) {
