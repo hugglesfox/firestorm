@@ -1,5 +1,5 @@
 src = [
-  'test_form_parsing.cpp',
+  '../test.cpp',
   'test_form.cpp'
 ]
 
