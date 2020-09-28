@@ -25,9 +25,7 @@ string strip_identifier(string id) {
 }
 
 // Replace all the variables in a template with the values in vars
-string parse_html(string filename, HtmlVars vars) {
-  string html = file_as_string(filename, SERVER_RESOURCE);
-
+string parse_html(string html, HtmlVars vars) {
   for (string id : get_vars(html)) {
     // If the variable isn't in vars, leave it alone
     if (vars.count(strip_identifier(id)) != 0) {

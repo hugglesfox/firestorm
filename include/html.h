@@ -8,6 +8,6 @@
 
 using HtmlVars = std::unordered_map<string, string>;
 
-string parse_html(string filename, HtmlVars args);
+string parse_html(string html, HtmlVars args);
 
 #endif
