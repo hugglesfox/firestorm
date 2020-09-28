@@ -1,5 +1,5 @@
 src = [
-  'test_string_splitting.cpp',
+  '../test.cpp',
   'test_utils.cpp'
 ]
 
