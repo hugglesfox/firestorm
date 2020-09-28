@@ -8,7 +8,7 @@ string Cookie::construct() {
   cookie += value;
 
   if (max_age > 0) {
-    cookie += "; " + std::to_string(max_age);
+    cookie += "; Max-Age=" + std::to_string(max_age);
   }
 
   if (secure) {
