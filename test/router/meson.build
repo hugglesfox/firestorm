@@ -1,5 +1,5 @@
 src = [
-  'test_uri_parsing.cpp',
+  '../test.cpp',
   'test_router.cpp'
 ]
 
