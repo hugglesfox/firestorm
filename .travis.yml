@@ -22,4 +22,5 @@ script:
   - meson test -C build
 
 after_success:
-  - coveralls --exclude examples --exclude test/include --gcov-options '\-lp'
+  - bash <(curl -s https://codecov.io/bash)
+
