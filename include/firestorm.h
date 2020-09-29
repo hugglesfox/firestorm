@@ -19,25 +19,15 @@
 
 class FireStorm {
 private:
-  ErrorPages error;
   vector<Route *> routes;
 
 public:
+  HttpError error;
   FireStorm add_route(Route *route);
   FireStorm log_level(LogLevel level);
-
-  FireStorm bad_request(const ErrorFn &fn);
-  FireStorm unauthorized(const ErrorFn &fn);
-  FireStorm forbidden(const ErrorFn &fn);
-  FireStorm not_found(const ErrorFn &fn);
-  FireStorm method_not_allowed(const ErrorFn &fn);
-  FireStorm conflict(const ErrorFn &fn);
-
-  FireStorm internal_server_error(const ErrorFn &fn);
-  FireStorm not_implemented(const ErrorFn &fn);
-  FireStorm service_unavailable(const ErrorFn &fn);
-
+  FireStorm error_handler(http_status_code status, const ErrorFn &handler);
   Response route(http_request request);
+
   void ignite(unsigned int port = 5000, string host = "localhost");
 };
 

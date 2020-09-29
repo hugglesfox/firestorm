@@ -49,17 +49,17 @@ TEST_CASE("test default error handling") {
 
   SECTION("test default route") {
     FireStorm firestorm = FireStorm().add_route(new Route());
-    REQUIRE(firestorm.route(&request) == internal_server_error_fn());
+    REQUIRE(firestorm.route(&request) == firestorm.error.from(HTTP_STATUS_INTERNAL_SERVER_ERROR));
   }
 
   SECTION("test default middleware") {
     FireStorm firestorm = FireStorm().add_route(new DefaultMiddleWare());
-    REQUIRE(firestorm.route(&request) == internal_server_error_fn());
+    REQUIRE(firestorm.route(&request) == firestorm.error.from(HTTP_STATUS_INTERNAL_SERVER_ERROR));
   }
 
   SECTION("test error catching") {
     FireStorm firestorm = FireStorm().add_route(new BadRoute());
-    REQUIRE(firestorm.route(&request) == internal_server_error_fn());
+    REQUIRE(firestorm.route(&request) == firestorm.error.from(HTTP_STATUS_INTERNAL_SERVER_ERROR));
   }
 }
 
@@ -73,7 +73,7 @@ TEST_CASE("test hello") {
 
   SECTION("test not found") {
     auto request = MockRequest().uri("/").construct();
-    REQUIRE(firestorm.route(&request) == not_found_fn());
+    REQUIRE(firestorm.route(&request) == firestorm.error.from(HTTP_STATUS_NOT_FOUND));
   }
 }
 
@@ -82,12 +82,12 @@ TEST_CASE("test form parser headers") {
 
   SECTION("test correct content type") {
     auto request = MockRequest().add_header("Content-Type: application/x-www-form-urlencoded").construct();
-    REQUIRE(firestorm.route(&request) != not_found_fn());
+    REQUIRE(firestorm.route(&request) != firestorm.error.from(HTTP_STATUS_NOT_FOUND));
   }
 
   SECTION("test incorrect content type") {
     auto request = MockRequest().construct();
-    REQUIRE(firestorm.route(&request) == not_found_fn());
+    REQUIRE(firestorm.route(&request) == firestorm.error.from(HTTP_STATUS_NOT_FOUND));
   }
 }
 
