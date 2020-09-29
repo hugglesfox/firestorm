@@ -26,6 +26,17 @@ public:
   }
 };
 
+class FormParsing : public Route {
+public:
+  FormData form_data;
+
+  Outcome middlewares() {
+    return MiddleWares<FormParsing>()
+      .add(new Form<FormParsing>())
+      .outcome(*this);
+  }
+};
+
 class BadRoute : public Route {
 public:
   Response response() {
@@ -66,4 +77,17 @@ TEST_CASE("test hello") {
   }
 }
 
+TEST_CASE("test form parser headers") {
+  FireStorm firestorm = FireStorm().add_route(new FormParsing());
+
+  SECTION("test correct content type") {
+    auto request = MockRequest().add_header("Content-Type: application/x-www-form-urlencoded").construct();
+    REQUIRE(firestorm.route(&request) != not_found_fn());
+  }
+
+  SECTION("test incorrect content type") {
+    auto request = MockRequest().construct();
+    REQUIRE(firestorm.route(&request) == not_found_fn());
+  }
+}
 
