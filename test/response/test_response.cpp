@@ -6,6 +6,11 @@ TEST_CASE("test response") {
   response.content_type = "text/plain";
   response.status = HTTP_STATUS_OK;
 
+  SECTION("test cookies") {
+    response.add_cookie(Cookie("foo", "bar"));
+    REQUIRE(response.headers.at(0) == "Set-Cookie: foo=bar; SameSite=Lax");
+  }
+
   SECTION("test status") {
     REQUIRE(status(HTTP_STATUS_OK) == response);
   }
