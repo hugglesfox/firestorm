@@ -15,25 +15,16 @@ struct Response {
   Response add_cookie(Cookie cookie);
   void send(http_request request);
 
-  bool operator==(Response other) {
-    if (headers.size() != other.headers.size()) {
-      return false;
-    }
+  bool operator ==(const Response &other) const {
+    return this->status == other.status
+      && this->headers == other.headers
+      && this->content_type == other.content_type
+      && this->body == other.body;
+  }
 
-    for (size_t i = 0; i < headers.size(); i++) {
-      if (headers[i] != other.headers[i]) {
-        return false;
-      }
-    }
-
-    return status == other.status
-      && content_type == other.content_type
-      && body == other.body;
-   }
-
-   bool operator!=(Response other) {
-     return !(*this == other);
-   }
+  bool operator !=(const Response &other) const {
+    return !(*this == other);
+  }
 };
 
 Response status(http_status_code status);
