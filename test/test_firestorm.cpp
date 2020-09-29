@@ -33,22 +33,23 @@ public:
   }
 };
 
-TEST_CASE("test default route") {
-  FireStorm firestorm = FireStorm().add_route(new Route());
+TEST_CASE("test default error handling") {
   auto request = MockRequest().uri("/").construct();
-  REQUIRE(firestorm.route(&request) == internal_server_error_fn());
-}
 
-TEST_CASE("test default middleware") {
-  FireStorm firestorm = FireStorm().add_route(new DefaultMiddleWare());
-  auto request = MockRequest().uri("/").construct();
-  REQUIRE(firestorm.route(&request) == internal_server_error_fn());
-}
+  SECTION("test default route") {
+    FireStorm firestorm = FireStorm().add_route(new Route());
+    REQUIRE(firestorm.route(&request) == internal_server_error_fn());
+  }
 
-TEST_CASE("test route error catching") {
-  FireStorm firestorm = FireStorm().add_route(new BadRoute());
-  auto request = MockRequest().uri("/").construct();
-  REQUIRE(firestorm.route(&request) == internal_server_error_fn());
+  SECTION("test default middleware") {
+    FireStorm firestorm = FireStorm().add_route(new DefaultMiddleWare());
+    REQUIRE(firestorm.route(&request) == internal_server_error_fn());
+  }
+
+  SECTION("test error catching") {
+    FireStorm firestorm = FireStorm().add_route(new BadRoute());
+    REQUIRE(firestorm.route(&request) == internal_server_error_fn());
+  }
 }
 
 TEST_CASE("test hello") {
