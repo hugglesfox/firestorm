@@ -3,6 +3,7 @@ test_inc = [inc, test_inc]
 
 subdir('cookie')
 subdir('form')
+subdir('headers')
 subdir('html')
 subdir('router')
 subdir('static_file')
