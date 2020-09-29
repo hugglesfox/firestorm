@@ -6,7 +6,7 @@ MockRequest MockRequest::add_header(string header) {
 }
 
 MockRequest MockRequest::add_cookie(Cookie cookie) {
-  request.headers.push_back(cookie.construct());
+  cookies.push_back(cookie);
   return *this;
 }
 
@@ -33,5 +33,15 @@ MockRequest MockRequest::uri(string uri) {
 
 // Construct a http_request from a MockRequest
 _http_request_data MockRequest::construct() {
+  if (cookies.size() > 0) {
+    string header = "Cookie: ";
+
+    for (Cookie cookie : cookies) {
+      header += cookie.name + "=" + cookie.value + "; ";
+    }
+
+    request.headers.push_back(header.substr(0, header.length() - 2));
+  }
+
   return request;
 }

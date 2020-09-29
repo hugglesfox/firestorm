@@ -18,6 +18,7 @@ struct _http_request_data {
 
 class MockRequest {
 private:
+  vector<Cookie> cookies;
   _http_request_data request;
 
 public:
