@@ -26,7 +26,9 @@ struct Response {
       }
     }
 
-    return status == other.status && content_type == other.content_type && body == other.body;
+    return status == other.status
+      && content_type == other.content_type
+      && body == other.body;
    }
 
    bool operator!=(Response other) {
