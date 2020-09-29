@@ -9,17 +9,16 @@ struct _http_request_data {
   string uri;
   string query_string;
   http_method method;
+
+  unsigned short port;
   string body;
+  string filename;
   vector<string> headers;
 };
 
 class MockRequest {
 private:
-  string _uri;
-  string _args;
-  string _body;
-  http_method _method;
-  vector<string> headers;
+  _http_request_data request;
 
 public:
   MockRequest add_header(string header);
@@ -28,7 +27,7 @@ public:
   MockRequest body(string body);
   MockRequest body(json body);
   MockRequest method(http_method method);
-  http_request construct();
+  _http_request_data construct();
 };
 
 #endif
