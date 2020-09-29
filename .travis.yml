@@ -9,6 +9,10 @@ compiler:
 
 cache: ccache
 
+jobs:
+  allow_failures:
+    - compiler: clang
+
 before_install:
   - sudo apt-get update
   - sudo apt-get -y install meson gcovr
