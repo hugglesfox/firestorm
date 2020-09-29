@@ -28,7 +28,7 @@ Response json_data(json data, http_status_code status) {
 Response html(string filename, HtmlVars vars,
               http_status_code status) {
   string html = file_as_string(filename, SERVER_RESOURCE);
-  return Response{status, {}, "text/html", parse_html(filename, vars)};
+  return Response{status, {}, "text/html", parse_html(html, vars)};
 }
 
 Response file(string filename, string content_type, http_status_code status) {
