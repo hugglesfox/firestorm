@@ -44,6 +44,10 @@ public:
   }
 };
 
+Response custom_error() {
+  return plain("¯\\_(ツ)_/¯", HTTP_STATUS_NOT_FOUND);
+}
+
 TEST_CASE("test default error handling") {
   auto request = MockRequest().uri("/").construct();
 
@@ -61,6 +65,12 @@ TEST_CASE("test default error handling") {
     FireStorm firestorm = FireStorm().add_route(new BadRoute());
     REQUIRE(firestorm.route(&request) == firestorm.error.from(HTTP_STATUS_INTERNAL_SERVER_ERROR));
   }
+}
+
+TEST_CASE("test custom error handling") {
+  auto request = MockRequest().uri("/").construct();
+  FireStorm firestorm = FireStorm().error_handler(HTTP_STATUS_NOT_FOUND, custom_error);
+  REQUIRE(firestorm.route(&request) == custom_error());
 }
 
 TEST_CASE("test hello") {
