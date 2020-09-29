@@ -21,6 +21,6 @@ Response not_found() {
 }
 
 int main() {
-  FireStorm().add_route(new Hello()).not_found(not_found).ignite();
+  FireStorm().add_route(new Hello()).error_handler(HTTP_STATUS_NOT_FOUND, not_found).ignite();
   return 0;
 }
