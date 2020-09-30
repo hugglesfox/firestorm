@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.com/hugglesfox/firestorm.svg?branch=master)](https://travis-ci.com/hugglesfox/firestorm) [![codecov](https://codecov.io/gh/hugglesfox/firestorm/branch/master/graph/badge.svg)](https://codecov.io/gh/hugglesfox/firestorm)
 
-FireStorm aims to be a simple yet flexible web frame work which is built on top of [SplashKit’s](https://www.splashkit.io) networking features. FireStorm provides abstractions for routing, middlewares, cookies, redirects and more.
+FireStorm aims to be a simple yet flexible web framework which is built on top of [SplashKit’s](https://www.splashkit.io) networking features. FireStorm provides abstractions for routing, middlewares, cookies, redirects and more.
 
 **Note:** FireStorm currently relies on features from the develop branch of skm.
 
@@ -113,7 +113,6 @@ Projects using FireStorm can be compiled using `skm` by specifying the `LIB` env
 LIB='-lfirestorm' skm clang++ program.cpp
 ```
 
-**NOTE:** Support for the `LIB` environment variable has not yet been merged into skm. See [splashkit/skm#26](https://github.com/splashkit/skm/pull/26) for more information.
 
 ## Documentation
 
