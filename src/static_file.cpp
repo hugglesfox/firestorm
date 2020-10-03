@@ -1,34 +1,18 @@
 #include "static_file.h"
 
 string file_type(string filename) {
-  string ext = split_at(filename, '.').back();
+  string file_ext = split_at(filename, '.').back();
 
-  if (ext == "css") {
-    return "text/css";
-  }
-
-  if (ext == "csv") {
-    return "text/csv";
-  }
-
-  if (ext == "html" || ext == "htm") {
-    return "text/html";
-  }
-
-  if (ext == "ico") {
+  if (file_ext == "ico") {
     return "image/vnd.microsoft.icon";
   }
 
-  if (ext == "js") {
-    return "text/javascript";
-  }
+  string extentions[] = {"css", "html", "js"}
 
-  if (ext == "json") {
-    return "application/json";
-  }
-
-  if (ext == "xhtml") {
-    return "application/xhtml+xml";
+  for (string extention : extentions) {
+    if (file_ext == extention) {
+      return "text/" + extention;
+    }
   }
 
   return "text/plain";
