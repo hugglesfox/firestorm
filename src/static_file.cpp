@@ -7,7 +7,7 @@ string file_type(string filename) {
     return "image/vnd.microsoft.icon";
   }
 
-  string extentions[] = {"css", "html", "js"}
+  string extentions[] = {"css", "html", "js"};
 
   for (string extention : extentions) {
     if (file_ext == extention) {
