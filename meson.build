@@ -1,4 +1,4 @@
-project('FireStorm', 'cpp', version : '0.3.0', license : 'MIT')
+project('FireStorm', 'cpp', version : '0.3.1', license : 'MIT')
 
 skm_dir = get_option('skm_dir')
 sk_lib_dir = join_paths(skm_dir, 'lib/linux')
