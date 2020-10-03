@@ -28,12 +28,18 @@ public:
 
 class FormParsing : public Route {
 public:
+  UriArgs uri_args;
   FormData form_data;
 
   Outcome middlewares() {
     return MiddleWares<FormParsing>()
+      .add(new Router<FormParsing>(HTTP_POST_METHOD, {"/"}))
       .add(new Form<FormParsing>())
       .outcome(*this);
+  }
+
+  Response response() {
+    return plain(form_data["foo"]);
   }
 };
 
@@ -87,13 +93,18 @@ TEST_CASE("test hello") {
   }
 }
 
-TEST_CASE("test form parser headers") {
+TEST_CASE("test form parsing") {
   FireStorm firestorm = FireStorm().add_route(new FormParsing());
 
   SECTION("test correct content type") {
-    auto request = MockRequest().add_header("Content-Type: application/x-www-form-urlencoded").construct();
-    REQUIRE(firestorm.route(&request) != firestorm.error.from(HTTP_STATUS_NOT_FOUND));
+    auto request = MockRequest()
+      .add_header("Content-Type: application/x-www-form-urlencoded")
+      .method(HTTP_POST_METHOD)
+      .body("foo=bar&hello=world")
+      .construct();
+    REQUIRE(firestorm.route(&request) == plain("bar"));
   }
+
 
   SECTION("test incorrect content type") {
     auto request = MockRequest().construct();
